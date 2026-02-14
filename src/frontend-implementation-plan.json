@@ -1,0 +1,97 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Seamless TBN landing page logo + image sizing and theme integration",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "summary": "Make the TBN logo crisp, consistently sized, and well-balanced in header/hero/footer across breakpoints; switch to alternate logo asset if needed.",
+      "acceptanceCriteria": [
+        "Header logo remains vertically centered within the 64px header and has consistent visual height across breakpoints (no squished look).",
+        "Hero logo is prominent and sharp, with appropriate padding/containment so it does not feel small or lost.",
+        "Footer logo matches the same visual treatment as header/hero (consistent sizing style).",
+        "Logo never appears stretched (maintains aspect ratio) and does not clip on small screens."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/landing/TbnLogo.tsx",
+          "operation": "create",
+          "description": "Create a shared TbnLogo component that standardizes logo rendering (asset selection between /assets/IMG_7410.jpeg and /assets/IMG_7410-1.jpeg, aspect-ratio-safe sizing, and consistent framing for dark+gold theme). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/HeaderNav.tsx",
+          "operation": "modify",
+          "description": "Replace the header <img> logo usage with the shared TbnLogo component and tune sizing so it stays vertically centered in the 64px header, preserves aspect ratio, and avoids clipping on small screens. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Replace the hero <img> logo usage with the shared TbnLogo component and adjust responsive size/padding so the logo reads prominently on mobile and desktop without appearing small or low-contrast. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/FooterNav.tsx",
+          "operation": "modify",
+          "description": "Replace the footer <img> logo usage with the shared TbnLogo component to match header/hero treatment and ensure consistent visual sizing and aspect ratio. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Make the App section dashboard image and carousel slide images feel full-size and responsive while preserving aspect ratio and preventing layout shift.",
+      "acceptanceCriteria": [
+        "App section dashboard image spans the available content width and feels large on desktop (not confined by overly small max-width/contain behavior).",
+        "Carousel images feel full and immersive within the carousel frame across breakpoints (no tiny image floating in a large black box).",
+        "No image appears distorted; aspect ratios are preserved.",
+        "No layout shift/jank occurs when images load (container sizing remains stable)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/landing/MediaFrame.tsx",
+          "operation": "create",
+          "description": "Create a shared MediaFrame component for screenshot-like images that provides stable container sizing (e.g., consistent aspect ratio strategy), responsive scaling, and a theme-aligned frame so images can render \"full\" without distortion. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/AppSection.tsx",
+          "operation": "modify",
+          "description": "Update the dashboard image presentation to use MediaFrame and adjust layout constraints so the image fills the available section width responsively (including on large screens), preserves aspect ratio, and reserves space to avoid load-time jank. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "operation": "modify",
+          "description": "Update the carousel slide image container and image fit strategy so slides appear immersive and full within the frame (reducing letterboxing), preserve aspect ratio, and keep the carousel height stable across breakpoints. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Unify logo, dashboard, and carousel visuals with a consistent dark+gold theme-aligned framing system (radius, borders, shadows, backgrounds, spacing).",
+      "acceptanceCriteria": [
+        "All major images (logo, dashboard, carousel slides) share a consistent visual system (same rounding, border/shadow style).",
+        "Image containers/backgrounds complement the dark theme and gold accents without reducing readability or contrast.",
+        "Overall page looks cohesive: images do not feel pasted-on; transitions between sections feel smooth and consistent."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add shared theme-aligned utility/classes for image framing (consistent radius, subtle gold-tinted border, shadow/glow, and background treatment) to be reused by TbnLogo and MediaFrame without changing marketing copy. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/TbnLogo.tsx",
+          "operation": "modify",
+          "description": "Apply the shared framing/spacing styles from frontend/src/index.css so the logo integrates with the dark+gold theme consistently across header/hero/footer and maintains readability/contrast. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/MediaFrame.tsx",
+          "operation": "modify",
+          "description": "Apply the shared framing/spacing styles from frontend/src/index.css so dashboard and carousel screenshots match the same visual system (radius, border/shadow, background treatment) for cohesive section transitions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "operation": "modify",
+          "description": "Align carousel container backgrounds and spacing with the shared framing system (remove harsh black boxing where possible, ensure consistent border/shadow/radius) so images feel seamless with the site theme. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

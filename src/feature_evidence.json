@@ -1,0 +1,67 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-improve-the-tbn-logo-rendering-in-the-header-hero-and-footer-so-it-looks-crisp-well-sized-and-visually-balanced-on-both-mobile-and-desktop-no-awkward-cropping-stretching-or-low-contrast-appearance-if-the-current-logo-asset-assets-img-7410-jpeg-cannot-be-made-to-look-good-via-sizing-padding-background-treatment-switch-to-the-alternate-provided-logo-asset-assets-img-7410-1-jpeg-for-the-logo-placements",
+      "featureTitle": "Improve the TBN logo rendering in the header, hero, and footer so it looks crisp, well-sized, and visually balanced on both mobile and desktop (no awkward cropping, stretching, or low-contrast appearance). If the current logo asset (\"/assets/IMG_7410.jpeg\") cannot be made to look good via sizing/padding/background treatment, switch to the alternate provided logo asset (\"/assets/IMG_7410-1.jpeg\") for the logo placements.",
+      "files": [
+        "frontend/src/components/landing/FooterNav.tsx",
+        "frontend/src/components/landing/HeaderNav.tsx",
+        "frontend/src/components/landing/HeroSection.tsx",
+        "frontend/src/components/landing/TbnLogo.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-adjust-the-app-section-dashboard-image-and-the-carousel-slide-images-to-display-at-an-appropriately-large-responsive-size-so-they-feel-full-size-and-integrated-into-the-layout-while-preserving-aspect-ratio-and-avoiding-excessive-empty-letterboxing-ensure-images-scale-smoothly-from-mobile-to-desktop",
+      "featureTitle": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout, while preserving aspect ratio and avoiding excessive empty letterboxing. Ensure images scale smoothly from mobile to desktop.",
+      "files": [
+        "frontend/src/components/landing/AppSection.tsx",
+        "frontend/src/components/landing/MediaFrame.tsx",
+        "frontend/src/components/landing/SwipeCarouselSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-refine-image-integration-with-the-site-theme-so-screenshots-and-the-logo-feel-seamless-with-the-dark-gold-tbn-brand-styling-apply-consistent-framing-border-radius-borders-shadows-background-treatments-behind-images-and-spacing-so-images-visually-match-the-website-theme-and-colors",
+      "featureTitle": "Refine image integration with the site theme so screenshots and the logo feel seamless with the dark + gold TBN brand styling: apply consistent framing (border radius, borders, shadows), background treatments behind images, and spacing so images visually match the website theme and colors.",
+      "files": [
+        "frontend/src/components/landing/MediaFrame.tsx",
+        "frontend/src/components/landing/SwipeCarouselSection.tsx",
+        "frontend/src/components/landing/TbnLogo.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

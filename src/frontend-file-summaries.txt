@@ -1,0 +1,21 @@
+{
+  "frontend/src/App.tsx": "Main app component that renders the TBN landing page as the default view.",
+  "frontend/src/pages/TbnLandingPage.tsx": "Single-page layout composing all landing sections (Hero, App, Carousel, Closing, Trusted By, Who For, FAQ) with header and footer navigation.",
+  "frontend/src/components/landing/HeaderNav.tsx": "Sticky header with TBN logo component, responsive navigation, and smooth scroll to sections.",
+  "frontend/src/components/landing/FooterNav.tsx": "Footer with TBN logo component, brand info, quick links, and Caffeine.ai attribution with UTM tracking.",
+  "frontend/src/components/landing/HeroSection.tsx": "Hero section with large TBN logo component, problem statement, solution, headline, and gradient text effects.",
+  "frontend/src/components/landing/AppSection.tsx": "App showcase section displaying the dashboard image using MediaFrame component with proper sizing and theme integration.",
+  "frontend/src/components/landing/SwipeCarouselSection.tsx": "Auto-advancing carousel with MediaFrame components for feature slides, drag/swipe support, manual controls, and improved visual consistency with the dark+gold theme.",
+  "frontend/src/components/landing/ClosingSection.tsx": "Closing section highlighting the complete fitness system and transformation message.",
+  "frontend/src/components/landing/TrustedBySection.tsx": "Testimonials section showcasing trust from 100+ working professionals with value cards.",
+  "frontend/src/components/landing/WhoForSection.tsx": "Target audience section with checklist of ideal users and \"just consistency\" message.",
+  "frontend/src/components/landing/FaqSection.tsx": "FAQ section using shadcn Accordion component to display collapsible question/answer pairs.",
+  "frontend/src/content/tbnCopy.ts": "Centralized content module containing all user-provided copy for the landing page sections.",
+  "frontend/src/components/landing/assets.ts": "Asset path mapping for logo, dashboard, and 8 carousel slide images.",
+  "frontend/src/hooks/useAutoAdvanceCarousel.ts": "Custom hook managing carousel state, auto-advance timer, pause/resume logic, and navigation controls.",
+  "frontend/src/index.css": "Global styles with dark theme, gold accent color system, and shared image framing utilities (tbn-logo-frame, tbn-media-frame) using inline CSS for gradients with opacity to avoid Tailwind @apply limitations.",
+  "frontend/tailwind.config.js": "Tailwind configuration with gold accent color, Inter font family, and extended theme tokens.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file as no backend queries are needed for this marketing page.",
+  "frontend/src/components/landing/TbnLogo.tsx": "Reusable TBN logo component with size variants (sm/md/lg/xl), consistent framing with gold-tinted borders and shadows, and proper aspect ratio preservation.",
+  "frontend/src/components/landing/MediaFrame.tsx": "Reusable media frame component for screenshots with stable aspect ratio containers, loading states, theme-aligned borders/shadows, and smooth image transitions."
+}

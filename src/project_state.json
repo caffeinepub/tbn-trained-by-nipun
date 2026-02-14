@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Build a marketing landing website for TBN (Trained By Nipun) using the provided logo and fitness app screenshots, including a hero section, app dashboard section, and an auto-advancing swipe carousel with 8 feature slides plus closing/FAQ sections.",
+  "architectural_notes": [
+    "Site structure: Hero (logo + headline/subheadline + supporting copy) -> App section (dashboard image) -> Auto-advancing swipe carousel (8 slides with full-width images + text) -> Closing + testimonials/social proof -> \"Who this is for\" -> FAQ.",
+    "Use first provided image as TBN logo, then main dashboard image, then remaining images mapped to carousel slides 1–8 in order.",
+    "Ensure all provided images (logo, dashboard, carousel) are displayed at appropriate full/near-full sizes with correct aspect ratio handling (object-fit, responsive sizing) and integrated seamlessly with consistent spacing/alignment.",
+    "Adjust visual theme (colors/backgrounds/overlays) to better match the provided screenshots and TBN brand so images feel cohesive with the page."
+  ],
+  "known_issues": [
+    "TBN logo currently does not look good (likely sizing/cropping/contrast issue in header/hero).",
+    "Other images are not rendering at full/appropriate size; need responsive full-width/large presentation and better integration.",
+    "Overall image integration/theme colors feel mismatched; needs smoother, more seamless look across sections."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-single-page-marketing-landing-page-for-tbn-trained-by-nipun-that-uses-the-exact-copy-provided-by-the-user-and-follows-this-section-order-1-hero-logo-problem-supporting-line-headline-subheadline-2-app-section-with-everything-you-need-in-one-app-and-the-main-dashboard-image-3-swipe-carousel-section-with-8-auto-advancing-slides-4-closing-section-5-trusted-by-100-working-professionals-section-6-who-this-app-is-for-checklist-section-7-faq-section",
+      "title": "Create a responsive single-page marketing landing page for “TBN (Trained By Nipun)” that uses the exact copy provided by the user and follows this section order: (1) Hero (logo + problem + supporting line + headline + subheadline), (2) App section with “Everything You Need in One App” and the main dashboard image, (3) Swipe carousel section with 8 auto-advancing slides, (4) Closing section, (5) “Trusted by 100+ Working Professionals” section, (6) “Who this app is for” checklist section, (7) FAQ section.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-and-reference-the-uploaded-images-as-static-frontend-assets-do-not-serve-images-via-backend-use-them-in-these-placements-logo-img-7410-jpeg-header-hero-app-dashboard-image-in-app-section-img-9304-jpeg-carousel-slides-full-width-images-mapped-as-slide-1-home-workouts-img-9291-jpeg-slide-2-workout-videos-img-9284-jpeg-slide-3-workout-tracker-img-9292-jpeg-slide-4-calorie-tracker-img-9295-jpeg-slide-5-ai-food-scanner-img-9294-jpeg-slide-6-200k-foods-img-9293-jpeg-slide-7-activity-tracker-img-9296-jpeg-slide-8-body-scanner-quality-restoration-20260214165854157-jpeg-keep-img-7410-1-jpeg-available-as-an-alternate-logo-asset-but-do-not-use-it-unless-needed-for-better-fit",
+      "title": "Add and reference the uploaded images as static frontend assets (do not serve images via backend). Use them in these placements: Logo = IMG_7410.jpeg (header/hero). App dashboard image in App section = IMG_9304.jpeg. Carousel slides full-width images mapped as: Slide 1 Home Workouts = IMG_9291.jpeg; Slide 2 Workout Videos = IMG_9284.jpeg; Slide 3 Workout Tracker = IMG_9292.jpeg; Slide 4 Calorie Tracker = IMG_9295.jpeg; Slide 5 AI Food Scanner = IMG_9294.jpeg; Slide 6 200K+ Foods = IMG_9293.jpeg; Slide 7 Activity Tracker = IMG_9296.jpeg; Slide 8 Body Scanner = quality_restoration_20260214165854157.jpeg. Keep IMG_7410-1.jpeg available as an alternate logo asset but do not use it unless needed for better fit.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-swipe-carousel-section-as-a-horizontally-swipeable-carousel-that-auto-advances-every-few-seconds-includes-8-slides-one-per-feature-and-provides-manual-navigation-prev-next-buttons-and-or-pagination-dots-auto-advance-must-pause-on-user-interaction-drag-swipe-hover-and-resume-after-a-short-delay",
+      "title": "Implement the “Swipe Carousel Section” as a horizontally swipeable carousel that auto-advances every few seconds, includes 8 slides (one per feature), and provides manual navigation (prev/next buttons and/or pagination dots). Auto-advance must pause on user interaction (drag/swipe/hover) and resume after a short delay.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-premium-fitness-brand-visual-theme-consistent-across-the-page-colors-typography-spacing-buttons-section-backgrounds-use-a-dark-black-base-with-gold-yellow-accents-to-match-the-provided-tbn-logo-and-app-screenshots-and-ensure-strong-accessibility-contrast-for-all-text",
+      "title": "Apply a cohesive, premium fitness brand visual theme consistent across the page (colors, typography, spacing, buttons, section backgrounds). Use a dark/black base with gold/yellow accents to match the provided TBN logo and app screenshots, and ensure strong accessibility contrast for all text.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-simple-top-navigation-header-that-includes-the-tbn-logo-and-anchor-links-to-key-sections-app-features-testimonials-faq-clicking-a-nav-item-should-smooth-scroll-to-the-corresponding-section-also-add-a-footer-that-repeats-the-brand-name-and-includes-the-same-anchor-links",
+      "title": "Add a simple top navigation/header that includes the TBN logo and anchor links to key sections (App, Features, Testimonials, FAQ). Clicking a nav item should smooth-scroll to the corresponding section. Also add a footer that repeats the brand name and includes the same anchor links.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-the-tbn-logo-rendering-in-the-header-hero-and-footer-so-it-looks-crisp-well-sized-and-visually-balanced-on-both-mobile-and-desktop-no-awkward-cropping-stretching-or-low-contrast-appearance-if-the-current-logo-asset-assets-img-7410-jpeg-cannot-be-made-to-look-good-via-sizing-padding-background-treatment-switch-to-the-alternate-provided-logo-asset-assets-img-7410-1-jpeg-for-the-logo-placements",
+      "title": "Improve the TBN logo rendering in the header, hero, and footer so it looks crisp, well-sized, and visually balanced on both mobile and desktop (no awkward cropping, stretching, or low-contrast appearance). If the current logo asset (\"/assets/IMG_7410.jpeg\") cannot be made to look good via sizing/padding/background treatment, switch to the alternate provided logo asset (\"/assets/IMG_7410-1.jpeg\") for the logo placements.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-the-app-section-dashboard-image-and-the-carousel-slide-images-to-display-at-an-appropriately-large-responsive-size-so-they-feel-full-size-and-integrated-into-the-layout-while-preserving-aspect-ratio-and-avoiding-excessive-empty-letterboxing-ensure-images-scale-smoothly-from-mobile-to-desktop",
+      "title": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout, while preserving aspect ratio and avoiding excessive empty letterboxing. Ensure images scale smoothly from mobile to desktop.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refine-image-integration-with-the-site-theme-so-screenshots-and-the-logo-feel-seamless-with-the-dark-gold-tbn-brand-styling-apply-consistent-framing-border-radius-borders-shadows-background-treatments-behind-images-and-spacing-so-images-visually-match-the-website-theme-and-colors",
+      "title": "Refine image integration with the site theme so screenshots and the logo feel seamless with the dark + gold TBN brand styling: apply consistent framing (border radius, borders, shadows), background treatments behind images, and spacing so images visually match the website theme and colors.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create TBN marketing landing page using provided images (logo, dashboard, and carousel slides) with the supplied copy and sections (hero, app section, auto-advancing carousel, closing, testimonials, FAQ).",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "TBN (Trained By Nipun)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

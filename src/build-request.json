@@ -1,0 +1,78 @@
+{
+  "kind": "build_request",
+  "title": "Fix logo and image sizing for seamless, full-size TBN landing page visuals",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "text": "Improve the TBN logo rendering in the header, hero, and footer so it looks crisp, well-sized, and visually balanced on both mobile and desktop (no awkward cropping, stretching, or low-contrast appearance). If the current logo asset (\"/assets/IMG_7410.jpeg\") cannot be made to look good via sizing/padding/background treatment, switch to the alternate provided logo asset (\"/assets/IMG_7410-1.jpeg\") for the logo placements.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Tbn app logo is not looking good"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header logo remains vertically centered within the 64px header and has consistent visual height across breakpoints (no squished look).",
+        "Hero logo is prominent and sharp, with appropriate padding/containment so it does not feel small or lost.",
+        "Footer logo matches the same visual treatment as header/hero (consistent sizing style).",
+        "Logo never appears stretched (maintains aspect ratio) and does not clip on small screens."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout, while preserving aspect ratio and avoiding excessive empty letterboxing. Ensure images scale smoothly from mobile to desktop.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "None other images are full size",
+          "The images should be well shown well integrated proper size and should feel smooth amd seamless in website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "App section dashboard image spans the available content width and feels large on desktop (not confined by overly small max-width/contain behavior).",
+        "Carousel images feel full and immersive within the carousel frame across breakpoints (no tiny image floating in a large black box).",
+        "No image appears distorted; aspect ratios are preserved.",
+        "No layout shift/jank occurs when images load (container sizing remains stable)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Refine image integration with the site theme so screenshots and the logo feel seamless with the dark + gold TBN brand styling: apply consistent framing (border radius, borders, shadows), background treatments behind images, and spacing so images visually match the website theme and colors.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Also match pics and website theme and colors"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All major images (logo, dashboard, carousel slides) share a consistent visual system (same rounding, border/shadow style).",
+        "Image containers/backgrounds complement the dark theme and gold accents without reducing readability or contrast.",
+        "Overall page looks cohesive: images do not feel pasted-on; transitions between sections feel smooth and consistent."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit files in frontend immutablePaths (e.g., frontend/src/main.tsx, frontend/src/hooks/useActor.ts, frontend/src/components/ui).",
+    "Keep images as static frontend assets (do not serve images via backend).",
+    "Do not change the marketing copy in frontend/src/content/tbnCopy.ts."
+  ],
+  "nonGoals": [
+    "Adding new sections or features beyond visual/layout improvements for the existing landing page.",
+    "Backend changes (backend/main.mo should remain unused for image delivery).",
+    "Introducing new third-party image/CDN services."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T12:44:12.968Z",
+  "summary": "Diff adds shared image framing components (TbnLogo, MediaFrame) and theme-aligned CSS utilities, and wires them into header/hero/footer and App/Carousel sections. Logo consistency and framing are addressed, but the App dashboard and carousel images are still constrained by small max-widths and use object-contain, which may prevent the requested “full size/immersive” feel and can introduce letterboxing.",
+  "missing_requirements": [
+    {
+      "id": "REQ-7",
+      "requirement": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout (large on desktop; immersive in carousel) while preserving aspect ratio and avoiding excessive empty letterboxing.",
+      "reason": "The new MediaFrame usage constrains the dashboard to `max-w-md` and carousel slides to `max-w-sm`, which likely keeps images relatively small on desktop. Additionally, MediaFrame forces `object-contain`, which tends to create letterboxing rather than reducing it.",
+      "evidence": [
+        "frontend/src/components/landing/AppSection.tsx (MediaFrame className=\"max-w-md w-full\")",
+        "frontend/src/components/landing/SwipeCarouselSection.tsx (MediaFrame className=\"max-w-sm w-full h-full\")",
+        "frontend/src/components/landing/MediaFrame.tsx (img uses \"object-contain\")"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Added a loading spinner/opacity transition state for images inside MediaFrame.",
+      "reason": "The request focused on sizing and visual integration; it did not ask for new loading UI behavior/spinners.",
+      "evidence": [
+        "frontend/src/components/landing/MediaFrame.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/components/landing/AppSection.tsx",
+    "frontend/src/components/landing/FooterNav.tsx",
+    "frontend/src/components/landing/HeaderNav.tsx",
+    "frontend/src/components/landing/HeroSection.tsx",
+    "frontend/src/components/landing/MediaFrame.tsx",
+    "frontend/src/components/landing/SwipeCarouselSection.tsx",
+    "frontend/src/components/landing/TbnLogo.tsx",
+    "frontend/src/index.css",
+    "project_state.json"
+  ]
+}
