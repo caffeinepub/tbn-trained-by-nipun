@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T12:44:12.971Z",
+  "generatedAt": "2026-02-14T15:34:36.706Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,51 +11,38 @@
     "implemented": 3,
     "items": [
       {
-        "id": "REQ-6",
-        "summary": "Improve the TBN logo rendering in the header, hero, and footer so it looks crisp, well-sized, and visually balanced on both mobile and desktop (no awkward cropping, stretching, or low-contrast appearance). If the current logo asset (\"/assets/IMG_7410.jpeg\") cannot be made to look good via sizing/padding/background treatment, switch to the alternate provided logo asset (\"/assets/IMG_7410-1.jpeg\") for the logo placements.",
+        "id": "REQ-61",
+        "summary": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/landing/TbnLogo.tsx",
-          "frontend/src/components/landing/HeaderNav.tsx",
-          "frontend/src/components/landing/HeroSection.tsx",
-          "frontend/src/components/landing/FooterNav.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/landing/TbnLogo.tsx",
-          "frontend/src/components/landing/HeaderNav.tsx",
-          "frontend/src/components/landing/HeroSection.tsx",
-          "frontend/src/components/landing/FooterNav.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout, while preserving aspect ratio and avoiding excessive empty letterboxing. Ensure images scale smoothly from mobile to desktop.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/landing/MediaFrame.tsx",
-          "frontend/src/components/landing/AppSection.tsx",
           "frontend/src/components/landing/SwipeCarouselSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/landing/MediaFrame.tsx",
-          "frontend/src/components/landing/AppSection.tsx",
           "frontend/src/components/landing/SwipeCarouselSection.tsx"
         ]
       },
       {
-        "id": "REQ-8",
-        "summary": "Refine image integration with the site theme so screenshots and the logo feel seamless with the dark + gold TBN brand styling: apply consistent framing (border radius, borders, shadows), background treatments behind images, and spacing so images visually match the website theme and colors.",
+        "id": "REQ-62",
+        "summary": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/landing/TbnLogo.tsx",
-          "frontend/src/components/landing/MediaFrame.tsx",
           "frontend/src/components/landing/SwipeCarouselSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/landing/TbnLogo.tsx",
-          "frontend/src/components/landing/MediaFrame.tsx",
+          "frontend/src/components/landing/SwipeCarouselSection.tsx"
+        ]
+      },
+      {
+        "id": "REQ-63",
+        "summary": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/tailwind.config.js",
+          "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/tailwind.config.js",
           "frontend/src/components/landing/SwipeCarouselSection.tsx"
         ]
       }
@@ -63,18 +50,11 @@
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/landing/AppSection.tsx",
-    "frontend/src/components/landing/FooterNav.tsx",
-    "frontend/src/components/landing/HeaderNav.tsx",
-    "frontend/src/components/landing/HeroSection.tsx",
-    "frontend/src/components/landing/MediaFrame.tsx",
     "frontend/src/components/landing/SwipeCarouselSection.tsx",
-    "frontend/src/components/landing/TbnLogo.tsx",
-    "frontend/src/index.css",
+    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Make the TBN landing page visuals feel crisp, full-size, and seamlessly integrated with the dark + gold theme by fixing logo rendering and improving responsive image sizing/treatment.
+**Goal:** Tighten the layout and typography in the landing page swipe carousel and add a subtle animated right-arrow hint to indicate users can swipe to the next slide.
 
 **Planned changes:**
-- Refine TBN logo rendering in header, hero, and footer (aspect-ratio safe sizing, padding/containment, contrast-friendly background treatment) and switch to the alternate logo asset if the current one cannot be made to look good.
-- Adjust App section dashboard image sizing so it spans available width and feels large on desktop while remaining responsive on mobile, without distortion or excessive letterboxing.
-- Update carousel slide image sizing/containers so slides feel immersive and “full size” across breakpoints, preserving aspect ratio and avoiding a small image floating inside a large frame.
-- Apply consistent image framing across logo/dashboard/carousel (shared border radius, border/shadow, and background treatments) to better match the dark + gold site styling and keep layouts stable during image loading.
+- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical gap between the carousel image block and the carousel text block while keeping the image-above-text (mobile-first) flow and leaving all carousel copy unchanged.
+- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) without harming readability or causing collisions, and without changing any copy.
+- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, add a visually subtle, non-interactive, continuously animated right-side arrow indicator consistent with the black + gold theme that does not overlap slide content or existing controls, does not create horizontal overflow, and is marked as decorative for accessibility.
 
-**User-visible outcome:** The logo looks sharp and well-balanced in all placements, and the dashboard + carousel images display at large, responsive sizes with cohesive styling that feels smooth and seamless across mobile and desktop.
+**User-visible outcome:** The carousel content appears tighter (less whitespace and slightly tighter text), and users see a subtle animated right-arrow hint indicating they can swipe/scroll to view the next slide.

@@ -18,8 +18,9 @@ export const tbnCopy = {
       {
         emoji: "🏠",
         title: "Home Workouts",
-        description: "Short 15–20 minute workouts. No gym needed. No equipment required.",
-        tagline: "You can exercise at home anytime.",
+        description: "Short 15–20 minute workouts.\nNo gym needed. No equipment required.\n\nYou can exercise at home anytime.",
+        features: [],
+        tagline: "",
       },
       {
         emoji: "🎥",
@@ -28,7 +29,7 @@ export const tbnCopy = {
         features: [
           "Step-by-step instructions",
           "Animated demonstrations",
-          "YouTube links included",
+          "YouTube links included"
         ],
         tagline: "You'll always know exactly what to do.",
       },
@@ -39,7 +40,7 @@ export const tbnCopy = {
         features: [
           "Log your exercises",
           "Smart suggestions based on previous workouts",
-          "Track your exercise progress over time",
+          "Track your exercise progress over time"
         ],
         tagline: "Stay consistent and see real improvement.",
       },
@@ -50,21 +51,23 @@ export const tbnCopy = {
         features: [
           "Count daily calories",
           "Monitor protein, carbs, and fats",
-          "Get detailed nutrition insights",
+          "Get detailed nutrition insights"
         ],
         tagline: "Simple food tracking. No stress.",
       },
       {
         emoji: "🤖",
         title: "AI Food Scanner",
-        description: "Just scan your food.",
-        tagline: "Take a photo → Instantly see calories. No need to search manually.",
+        description: "Just scan your food.\n\nTake a photo → Instantly see calories.\n\nNo need to search manually.",
+        features: [],
+        tagline: "",
       },
       {
         emoji: "🍛",
         title: "200K+ Foods",
-        description: "A massive food library — including Indian foods. Search from over 200,000+ food items.",
-        tagline: "Find accurate nutrition data in seconds.",
+        description: "A massive food library — including Indian foods.\n\nSearch from over 200,000+ food items.\nFind accurate nutrition data in seconds.",
+        features: [],
+        tagline: "",
       },
       {
         emoji: "⌚",
@@ -73,7 +76,7 @@ export const tbnCopy = {
         features: [
           "Calories burned",
           "Daily Step Counts",
-          "Water intake",
+          "Water intake"
         ],
         tagline: "Stay active every day.",
       },
@@ -84,15 +87,15 @@ export const tbnCopy = {
         features: [
           "Body fat and muscle tracking",
           "Body Strength insights",
-          "Body composition analysis",
+          "Body composition analysis"
         ],
         tagline: "See real progress — not just weight loss.",
       },
     ],
   },
   closing: {
-    headline: "One powerful app. Workouts + Food + Tracking + Progress.",
-    subheadline: "Everything in one place. Made for busy professionals like you.",
+    headline: "One powerful app.",
+    subheadline: "Workouts + Food + Tracking + Progress         =RESULTS",
     description: "This is a complete fitness system that has transformed 100+ working professionals like these:",
   },
   trustedBy: {

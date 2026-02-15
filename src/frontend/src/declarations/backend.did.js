@@ -8,10 +8,20 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const Documentation = IDL.Text;
+
+export const idlService = IDL.Service({
+  'getDomainValidationDocumentation' : IDL.Func([], [Documentation], []),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const Documentation = IDL.Text;
+  
+  return IDL.Service({
+    'getDomainValidationDocumentation' : IDL.Func([], [Documentation], []),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

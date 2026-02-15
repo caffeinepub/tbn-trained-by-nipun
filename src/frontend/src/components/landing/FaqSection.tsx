@@ -8,7 +8,7 @@ import { tbnCopy } from '../../content/tbnCopy';
 
 export default function FaqSection() {
   return (
-    <section id="faq" className="scroll-mt-16 py-16 md:py-24 bg-gradient-to-b from-background to-card/30">
+    <section id="faq" className="py-16 md:py-24 bg-gradient-to-b from-background to-card/30">
       <div className="container">
         <div className="mx-auto max-w-3xl space-y-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-foreground">

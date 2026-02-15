@@ -1,17 +1,30 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 35,
   "summary": "Build a marketing landing website for TBN (Trained By Nipun) using the provided logo and fitness app screenshots, including a hero section, app dashboard section, and an auto-advancing swipe carousel with 8 feature slides plus closing/FAQ sections.",
   "architectural_notes": [
     "Site structure: Hero (logo + headline/subheadline + supporting copy) -> App section (dashboard image) -> Auto-advancing swipe carousel (8 slides with full-width images + text) -> Closing + testimonials/social proof -> \"Who this is for\" -> FAQ.",
     "Use first provided image as TBN logo, then main dashboard image, then remaining images mapped to carousel slides 1–8 in order.",
     "Ensure all provided images (logo, dashboard, carousel) are displayed at appropriate full/near-full sizes with correct aspect ratio handling (object-fit, responsive sizing) and integrated seamlessly with consistent spacing/alignment.",
-    "Adjust visual theme (colors/backgrounds/overlays) to better match the provided screenshots and TBN brand so images feel cohesive with the page."
+    "Adjust visual theme (colors/backgrounds/overlays) to better match the provided screenshots and TBN brand so images feel cohesive with the page.",
+    "Ensure images and text are laid out in clearly separated regions (e.g., stacked or two-column with spacing) to avoid overlap/clutter; prioritize responsive breakpoints so image blocks and text blocks don’t collide.",
+    "Carousel styling: black background, white text, bright yellow accent color; rounded card container with soft shadow; consistent spacing; clean premium modern fitness-app look; no extra top spacing; maintain symmetrical/balanced layout; prevent any image/text/control overlap.",
+    "Carousel behavior: horizontal auto-scroll/auto-advance with smooth transition animations; enable touch swipe gesture on mobile; responsive across all screen sizes.",
+    "Carousel assets update: replace prior carousel slide images with the newly uploaded carousel screenshots (use the new set as the source of truth for slides).",
+    "Carousel copy source of truth: replace/restore carousel slide text to exactly the user-provided copy (emojis, line breaks, separators, and bullet counts vary by slide); do not rewrite or force a fixed 4-bullet format.",
+    "Carousel alignment: center-align slide text and align it visually with the slide image (consistent centered composition) to improve overall aesthetic."
   ],
   "known_issues": [
     "TBN logo currently does not look good (likely sizing/cropping/contrast issue in header/hero).",
     "Other images are not rendering at full/appropriate size; need responsive full-width/large presentation and better integration.",
-    "Overall image integration/theme colors feel mismatched; needs smoother, more seamless look across sections."
+    "Overall image integration/theme colors feel mismatched; needs smoother, more seamless look across sections.",
+    "Images and text are currently too mixed/combined, creating a messy layout; need clearer separation and spacing so they don’t clash, especially responsively.",
+    "Production deployment failed due to a deployment error (potentially related to domain naming/validation constraints for \"tbn-(trained-by-nipun)\").",
+    "Deployed draft is not loading (renders a completely blank page).",
+    "Carousel slide text/captions are missing (text with carousel pictures is not showing).",
+    "Picture/image layout does not match the intended design/reference (incorrect layout/positioning).",
+    "Carousel slide images are getting cut/clipped/hidden instead of fully visible (likely due to container sizing/overflow/object-fit).",
+    "Carousel slide text was changed (rewritten into points/4 bullets and language altered) even though the user only asked for image/text layout adjustments; text must be restored/kept as earlier."
   ],
   "isFixRequest": true,
   "existing_features": [
@@ -78,12 +91,536 @@
         "REQ-8"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-landing-page-section-layouts-so-images-and-text-are-visually-separated-not-mixed-overlapping-with-clear-spacing-to-prevent-the-page-from-looking-messy-on-both-mobile-and-desktop",
+      "title": "Update the landing page section layouts so images and text are visually separated (not mixed/overlapping) with clear spacing, to prevent the page from looking messy on both mobile and desktop.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-refactor-the-swipe-carousel-slide-layout-so-the-screenshot-and-the-slide-text-never-clash-ensure-the-slide-container-height-adapts-to-content-or-the-content-area-has-safe-scrolling-and-keep-carousel-navigation-controls-from-covering-the-slide-text",
+      "title": "Refactor the Swipe Carousel slide layout so the screenshot and the slide text never clash: ensure the slide container height adapts to content (or the content area has safe scrolling) and keep carousel navigation controls from covering the slide text.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-production-deployment-configuration-metadata-so-the-app-s-deployment-domain-uses-only-lowercase-letters-numbers-and-hyphens-no-parentheses-and-is-5-50-characters-long-replace-the-invalid-domain-string-tbn-trained-by-nipun-with-a-valid-slug-such-as-tbn-trained-by-nipun-wherever-the-deployment-domain-is-defined",
+      "title": "Update the production deployment configuration/metadata so the app’s deployment domain uses only lowercase letters, numbers, and hyphens (no parentheses), and is 5–50 characters long. Replace the invalid domain string \"tbn-(trained-by-nipun)\" with a valid slug such as \"tbn-trained-by-nipun\" wherever the deployment domain is defined.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-clear-user-facing-validation-message-in-english-wherever-the-deployment-domain-is-entered-or-displayed-in-configuration-explaining-the-allowed-format-5-50-characters-only-letters-numbers-and-hyphens-with-an-example-e-g-tbn-trained-by-nipun",
+      "title": "Add a clear, user-facing validation message (in English) wherever the deployment domain is entered or displayed in configuration, explaining the allowed format: 5–50 characters, only letters, numbers, and hyphens, with an example (e.g., \"tbn-trained-by-nipun\").",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-swipecarouselsection-so-it-does-not-update-react-state-during-render-ref-assignment-which-can-cause-an-infinite-re-render-loop-and-a-blank-page-remove-the-setsliderefs-sliderefs-pattern-from-the-ref-callback-and-refactor-slide-ref-storage-to-a-non-state-approach-e-g-useref-or-otherwise-ensure-no-state-updates-occur-during-rendering",
+      "title": "Fix the SwipeCarouselSection so it does not update React state during render/ref assignment (which can cause an infinite re-render loop and a blank page). Remove the setSlideRefs([...slideRefs]) pattern from the ref callback and refactor slide ref storage to a non-state approach (e.g., useRef) or otherwise ensure no state updates occur during rendering.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-app-level-error-boundary-or-equivalent-top-level-runtime-error-handling-around-the-landing-page-rendering-so-that-if-any-component-throws-during-render-the-user-sees-a-non-blank-fallback-ui-with-clear-english-text-and-an-option-to-reload-the-page",
+      "title": "Add an app-level error boundary (or equivalent top-level runtime error handling) around the landing page rendering so that if any component throws during render, the user sees a non-blank fallback UI with clear English text and an option to reload the page.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-swipe-carousel-section-so-each-slide-s-text-content-emoji-title-description-optional-bullet-list-and-tagline-from-tbncopy-carousel-slides-is-visible-and-rendered-alongside-its-corresponding-carousel-image-on-all-screen-sizes",
+      "title": "Fix the Swipe Carousel section so each slide’s text content (emoji, title, description, optional bullet list, and tagline from `tbnCopy.carousel.slides`) is visible and rendered alongside its corresponding carousel image on all screen sizes.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-the-carousel-slide-layout-so-the-images-and-text-match-the-intended-design-ensure-the-screenshot-area-is-appropriately-large-centered-and-responsive-and-ensure-the-overall-picture-text-composition-is-consistent-across-all-8-slides-no-awkward-sizing-misalignment-or-unexpected-spacing",
+      "title": "Adjust the carousel slide layout so the images and text match the intended design: ensure the screenshot area is appropriately large, centered, and responsive, and ensure the overall picture/text composition is consistent across all 8 slides (no awkward sizing, misalignment, or unexpected spacing).",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-lightweight-regression-check-for-the-carousel-rendering-to-prevent-future-changes-from-removing-slide-text-or-breaking-slide-layout-e-g-ensure-the-carousel-slide-title-and-description-are-present-in-the-dom-for-the-active-slide",
+      "title": "Add a lightweight regression check for the carousel rendering to prevent future changes from removing slide text or breaking slide layout (e.g., ensure the carousel slide title and description are present in the DOM for the active slide).",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-swipe-carousel-slide-layout-to-match-the-visual-structure-shown-in-the-uploaded-reference-image-img-9305-png-within-each-slide-present-a-single-easy-to-scan-vertical-flow-with-1-the-screenshot-prominently-at-the-top-and-2-the-slide-text-content-directly-below-it-so-the-full-meaning-is-understood-at-once-without-the-image-text-competing-for-space",
+      "title": "Update the Swipe Carousel slide layout to match the visual structure shown in the uploaded reference image (IMG_9305.png): within each slide, present a single, easy-to-scan vertical flow with (1) the screenshot prominently at the top, and (2) the slide text content directly below it so the full meaning is understood at once without the image/text competing for space.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-style-the-slide-text-block-to-resemble-the-reference-image-s-readability-pattern-strong-gold-title-emphasis-high-contrast-body-text-on-dark-background-and-a-clearly-differentiated-bullet-list-style-use-gold-yellow-markers-instead-of-plain-dots",
+      "title": "Style the slide text block to resemble the reference image’s readability pattern: strong gold title emphasis, high-contrast body text on dark background, and a clearly differentiated bullet list style (use gold/yellow markers instead of plain dots).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-swipe-carousel-section-slide-layout-to-be-mobile-first-and-match-this-per-slide-structure-1-feature-image-at-the-top-full-width-and-centered-with-no-cropping-2-feature-title-below-the-image-in-bold-with-bright-yellow-accent-color-3-exactly-4-bullet-points-with-consistent-spacing-and-ensure-the-image-text-never-overlap",
+      "title": "Update the Swipe Carousel section slide layout to be mobile-first and match this per-slide structure: (1) feature image at the top, full width and centered with no cropping; (2) feature title below the image in bold with bright yellow accent color; (3) exactly 4 bullet points with consistent spacing; and ensure the image/text never overlap.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enforce-spacing-rules-within-each-carousel-slide-on-mobile-24px-left-right-padding-for-the-slide-content-area-20-30px-vertical-gap-between-the-image-block-and-the-title-text-block-and-consistent-spacing-between-bullet-points",
+      "title": "Enforce spacing rules within each carousel slide on mobile: 24px left/right padding for the slide content area, 20–30px vertical gap between the image block and the title/text block, and consistent spacing between bullet points.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-carousel-slide-card-styling-match-the-requested-premium-fitness-look-black-background-white-text-bright-yellow-accent-rounded-card-container-and-soft-shadow-ensure-the-carousel-section-background-is-black-and-there-is-no-unintended-extra-top-spacing-above-the-slide-content",
+      "title": "Make the carousel slide card styling match the requested premium fitness look: black background, white text, bright yellow accent, rounded card container, and soft shadow; ensure the carousel section background is black and there is no unintended extra top spacing above the slide content.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-each-slide-fits-within-a-single-mobile-viewport-without-requiring-vertical-scrolling-while-preserving-the-required-structure-and-keeping-the-carousel-navigation-controls-accessible-and-non-overlapping-with-slide-content",
+      "title": "Ensure each slide fits within a single mobile viewport without requiring vertical scrolling, while preserving the required structure and keeping the carousel navigation controls accessible and non-overlapping with slide content.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-carousel-slide-content-source-so-each-slide-provides-exactly-4-bullet-points-for-rendering-e-g-by-adjusting-tbncopy-carousel-slides-feature-lists-where-needed-and-ensure-all-user-facing-text-remains-in-english",
+      "title": "Update the carousel slide content source so each slide provides exactly 4 bullet points for rendering (e.g., by adjusting `tbnCopy.carousel.slides` feature lists where needed) and ensure all user-facing text remains in English.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-extend-a-lightweight-regression-test-for-swipecarouselsection-to-confirm-that-the-active-slide-renders-a-the-slide-title-and-b-the-slide-description-and-c-exactly-4-bullet-items-when-present-in-the-dom",
+      "title": "Implement/extend a lightweight regression test for `SwipeCarouselSection` to confirm that the active slide renders (a) the slide title, and (b) the slide description, and (c) exactly 4 bullet items (when present) in the DOM.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-the-swipe-carousel-features-section-slide-layout-on-mobile-so-that-the-full-slide-content-feature-image-heading-bullet-points-navigation-controls-buttons-fits-within-a-single-100vh-viewport-without-requiring-vertical-scrolling-and-does-not-push-text-below-the-fold",
+      "title": "Adjust the Swipe Carousel “Features” section slide layout on mobile so that the full slide content (feature image + heading + bullet points + navigation controls/buttons) fits within a single 100vh viewport without requiring vertical scrolling, and does not push text below the fold.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-constrain-each-feature-slide-image-in-swipecarouselsection-to-these-mobile-first-rules-max-height-40vh-width-100-object-fit-contain-center-aligned-rounded-corners-keep-aspect-ratio-and-do-not-crop-or-vertically-stretch",
+      "title": "Constrain each feature slide image in SwipeCarouselSection to these mobile-first rules: max-height 40vh, width 100%, object-fit contain, center-aligned, rounded corners, keep aspect ratio, and do not crop or vertically stretch.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-the-requested-spacing-rules-within-each-swipecarouselsection-slide-on-mobile-24px-left-right-padding-for-the-slide-content-area-24-32px-vertical-space-below-the-image-before-the-heading-text-16-20px-vertical-space-between-bullet-points-and-overall-balanced-vertical-spacing-so-content-fits-above-the-fold",
+      "title": "Apply the requested spacing rules within each SwipeCarouselSection slide on mobile: 24px left/right padding for the slide content area; 24–32px vertical space below the image before the heading/text; 16–20px vertical space between bullet points; and overall balanced vertical spacing so content fits above the fold.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-existing-8-swipecarouselsection-slide-images-with-the-newly-uploaded-screenshots-by-updating-the-carousel-asset-list-so-the-landing-page-no-longer-references-the-old-carousel-image-filenames",
+      "title": "Replace the existing 8 SwipeCarouselSection slide images with the newly uploaded screenshots by updating the carousel asset list so the landing page no longer references the old carousel image filenames.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-map-the-new-uploaded-images-to-the-8-carousel-slides-in-the-same-slide-order-as-tbncopy-carousel-slides-home-workouts-workout-videos-workout-tracker-calorie-tracker-ai-food-scanner-200k-foods-activity-tracker-body-scanner-using-these-files-slide-1-img-9308-jpeg-slide-2-img-9284-1-jpeg-slide-3-img-9292-1-jpeg-slide-4-img-9295-1-jpeg-slide-5-img-9294-1-jpeg-slide-6-img-9293-1-jpeg-slide-7-img-9296-1-jpeg-slide-8-use-exactly-one-of-quality-restoration-20260214165854157-1-jpeg-quality-restoration-20260214165854157-2-jpeg-quality-restoration-20260214165854157-3-jpeg-and-ensure-only-that-chosen-file-is-referenced-for-slide-8",
+      "title": "Map the new uploaded images to the 8 carousel slides in the same slide order as `tbnCopy.carousel.slides` (Home Workouts, Workout Videos, Workout Tracker, Calorie Tracker, AI Food Scanner, 200K+ Foods, Activity Tracker, Body Scanner), using these files: Slide 1 = IMG_9308.jpeg; Slide 2 = IMG_9284-1.jpeg; Slide 3 = IMG_9292-1.jpeg; Slide 4 = IMG_9295-1.jpeg; Slide 5 = IMG_9294-1.jpeg; Slide 6 = IMG_9293-1.jpeg; Slide 7 = IMG_9296-1.jpeg; Slide 8 = use exactly one of (quality_restoration_20260214165854157-1.jpeg, quality_restoration_20260214165854157-2.jpeg, quality_restoration_20260214165854157-3.jpeg) and ensure only that chosen file is referenced for slide 8.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-swipecarouselsection-image-text-composition-to-visually-match-the-newly-uploaded-reference-screenshot-so-that-within-each-slide-the-screenshot-and-the-text-appear-together-in-the-same-style-and-spacing-pattern-as-the-reference-image-presented-first-then-the-text-block-below-it-while-keeping-all-user-facing-text-in-english",
+      "title": "Update the SwipeCarouselSection image+text composition to visually match the newly uploaded reference screenshot so that, within each slide, the screenshot and the text appear together in the same style and spacing pattern as the reference (image presented first, then the text block below it), while keeping all user-facing text in English.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-swipecarouselsection-so-carousel-screenshots-never-appear-cut-hidden-on-mobile-ensure-the-slide-image-renders-fully-visible-no-cropping-with-object-fit-contain-and-remove-adjust-any-wrapper-sizing-e-g-fixed-aspect-ratio-max-height-overflow-hidden-combinations-that-can-cause-the-image-to-be-clipped",
+      "title": "Fix the SwipeCarouselSection so carousel screenshots never appear cut/hidden on mobile: ensure the slide image renders fully visible (no cropping) with `object-fit: contain`, and remove/adjust any wrapper sizing (e.g., fixed aspect-ratio + max-height + overflow-hidden combinations) that can cause the image to be clipped.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-swipecarouselsection-slide-layout-to-visually-match-the-uploaded-reference-screenshot-img-9305-1-png-within-each-slide-render-a-single-vertical-flow-with-1-the-screenshot-prominently-at-the-top-then-2-the-text-block-directly-below-title-bullets-using-the-dark-black-background-with-bright-yellow-accent-styling-consistent-with-the-reference",
+      "title": "Update SwipeCarouselSection slide layout to visually match the uploaded reference screenshot (IMG_9305-1.png): within each slide, render a single vertical flow with (1) the screenshot prominently at the top, then (2) the text block directly below (title + bullets), using the dark/black background with bright yellow accent styling consistent with the reference.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-swipecarouselsection-mobile-typography-spacing-and-image-sizing-so-each-slide-s-full-content-image-title-exactly-4-bullets-navigation-controls-fits-within-a-single-mobile-viewport-without-requiring-vertical-scrolling-while-keeping-readability-reduce-image-and-text-sizes-only-as-needed",
+      "title": "Adjust SwipeCarouselSection mobile typography, spacing, and image sizing so each slide’s full content (image + title + exactly 4 bullets + navigation controls) fits within a single mobile viewport without requiring vertical scrolling, while keeping readability (reduce image and text sizes only as needed).",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-extend-the-swipecarouselsection-regression-test-s-so-it-fails-if-the-active-slide-s-key-content-becomes-hidden-again-assert-that-the-active-slide-renders-a-title-b-description-and-c-exactly-4-bullet-items-when-present-and-add-a-sanity-assertion-that-the-slide-image-element-is-present-and-uses-non-cropping-behavior-e-g-object-contain-class",
+      "title": "Implement/extend the SwipeCarouselSection regression test(s) so it fails if the active slide’s key content becomes hidden again: assert that the active slide renders (a) title, (b) description, and (c) exactly 4 bullet items when present; and add a sanity assertion that the slide image element is present and uses non-cropping behavior (e.g., `object-contain` class).",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-entire-top-header-navigation-bar-from-the-landing-page-so-no-sticky-top-navigation-ui-is-visible-no-logo-menu-icon-or-navigation-links-at-the-top-of-the-page",
+      "title": "Remove the entire top header/navigation bar from the landing page so no sticky/top navigation UI is visible (no logo, menu icon, or navigation links at the top of the page).",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-landing-page-layout-spacing-after-removing-the-header-eliminate-header-specific-scroll-offsets-spacing-so-section-anchors-and-the-domain-validation-banner-position-correctly-without-extra-top-padding",
+      "title": "Update the landing page layout spacing after removing the header: eliminate header-specific scroll offsets/spacing so section anchors and the domain validation banner position correctly without extra top padding.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-swipecarouselsection-increase-the-carousel-slide-image-size-and-reduce-the-text-font-size-while-keeping-all-carousel-text-exactly-as-it-was-originally-provided-do-not-rewrite-do-not-change-language-and-do-not-force-convert-content-into-a-fixed-4-bullet-format",
+      "title": "In `SwipeCarouselSection`, increase the carousel slide image size and reduce the text font size, while keeping all carousel text exactly as it was originally provided (do not rewrite, do not change language, and do not force-convert content into a fixed 4-bullet format).",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-section-s-main-dashboard-screenshot-assets-img-9304-jpeg-so-it-displays-with-an-aspect-correct-non-distorted-layout-no-forced-aspect-ratio-that-stretches-crops-the-image-and-add-a-shiny-stylish-premium-frame-treatment-around-it-e-g-subtle-gold-gradient-border-glow-soft-shadow-to-give-an-exclusive-look-on-both-mobile-and-desktop",
+      "title": "Update the App section’s main dashboard screenshot (/assets/IMG_9304.jpeg) so it displays with an aspect-correct, non-distorted layout (no forced aspect ratio that stretches/crops the image) and add a shiny/stylish premium frame treatment around it (e.g., subtle gold gradient border + glow + soft shadow) to give an exclusive look on both mobile and desktop.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-existing-carousel-slide-copy-in-frontend-src-content-tbncopy-ts-with-the-exact-user-provided-carousel-text-content-for-slides-1-8-including-emojis-wording-and-meaning-without-rewriting-or-adding-extra-bullet-points-beyond-what-the-user-provided-ensure-slides-with-no-bullets-render-correctly",
+      "title": "Replace the existing carousel slide copy in frontend/src/content/tbnCopy.ts with the exact user-provided carousel text content for Slides 1–8 (including emojis, wording, and meaning), without rewriting or adding extra bullet points beyond what the user provided; ensure slides with no bullets render correctly.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-swipecarouselsection-layout-so-the-slide-text-block-is-centered-and-aligned-with-the-slide-image-centered-horizontally-consistent-width-improving-overall-alignment-and-attractiveness-while-keeping-the-image-full-width-within-the-slide-card-and-the-text-clearly-readable-on-mobile-and-desktop",
+      "title": "Update the SwipeCarouselSection layout so the slide text block is centered and aligned with the slide image (centered horizontally, consistent width), improving overall alignment and attractiveness while keeping the image full-width within the slide card and the text clearly readable on mobile and desktop.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-closing-section-copy-in-frontend-src-content-tbncopy-ts-to-match-the-user-provided-closing-message-and-render-it-with-the-intended-line-breaks-so-it-reads-as-one-powerful-app-then-workouts-food-tracking-progress-results",
+      "title": "Update the Closing section copy in frontend/src/content/tbnCopy.ts to match the user-provided closing message, and render it with the intended line breaks so it reads as: “One powerful app.” then “Workouts + Food + Tracking + Progress         =RESULTS”.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-hide-the-deployment-domain-validation-banner-from-the-start-top-of-the-landing-page-so-it-is-not-shown-before-the-hero-section",
+      "title": "Remove/hide the deployment domain validation banner from the start/top of the landing page so it is not shown before the Hero section.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-screenshot-loading-behavior-so-carousel-app-images-do-not-visibly-appear-late-after-the-text-reduce-perceived-late-loading-and-layout-shift",
+      "title": "Improve screenshot loading behavior so carousel/app images do not visibly appear late after the text (reduce perceived late-loading and layout shift).",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-swipecarouselsection-so-carousel-screenshots-are-never-cut-clipped-on-mobile-or-desktop-each-slide-image-must-be-fully-visible-with-non-cropping-behavior-object-fit-contain-and-without-container-overflow-clipping",
+      "title": "Fix the SwipeCarouselSection so carousel screenshots are never cut/clipped on mobile or desktop; each slide image must be fully visible with non-cropping behavior (object-fit: contain) and without container overflow clipping.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reduce-line-spacing-and-tighten-vertical-spacing-inside-the-carousel-text-block-title-description-bullets-tagline-while-keeping-all-carousel-copy-unchanged",
+      "title": "Reduce line spacing and tighten vertical spacing inside the carousel text block (title/description/bullets/tagline) while keeping all carousel copy unchanged.",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-improve-overall-spacing-alignment-and-visual-polish-of-the-carousel-section-so-the-slide-composition-image-text-controls-looks-balanced-and-premium-on-both-mobile-and-desktop",
+      "title": "Improve overall spacing/alignment and visual polish of the carousel section so the slide composition (image + text + controls) looks balanced and premium on both mobile and desktop.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-extend-a-lightweight-regression-test-for-swipecarouselsection-to-ensure-the-active-slide-renders-key-text-elements-and-includes-a-non-cropping-carousel-image-element-object-contain-preventing-future-regressions-of-hidden-clipped-content",
+      "title": "Implement/extend a lightweight regression test for SwipeCarouselSection to ensure the active slide renders key text elements and includes a non-cropping carousel image element (object-contain), preventing future regressions of hidden/clipped content.",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-src-components-landing-swipecarouselsection-tsx-slide-layout-and-styling-to-visually-match-the-uploaded-reference-image-img-9310-png-within-each-slide-show-a-large-fully-visible-non-cropped-screenshot-at-the-top-followed-by-a-text-block-below-that-is-aligned-and-spaced-like-the-reference-headline-style-title-then-bullet-list-styling-with-prominent-yellow-circular-markers-consistent-left-alignment-and-padding",
+      "title": "Update `frontend/src/components/landing/SwipeCarouselSection.tsx` slide layout and styling to visually match the uploaded reference image `IMG_9310.png`: within each slide, show a large, fully-visible (non-cropped) screenshot at the top, followed by a text block below that is aligned and spaced like the reference (headline-style title, then bullet list styling with prominent yellow circular markers, consistent left alignment and padding).",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-do-not-change-any-carousel-copy-wording-keep-all-text-exactly-as-it-currently-exists-in-frontend-src-content-tbncopy-ts-including-emojis-line-breaks-and-which-slides-do-don-t-have-bullet-lists-only-adjust-layout-styling-rendering-behavior",
+      "title": "Do not change any carousel copy/wording: keep all text exactly as it currently exists in `frontend/src/content/tbnCopy.ts` (including emojis, line breaks, and which slides do/don’t have bullet lists). Only adjust layout/styling/rendering behavior.",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-prevent-horizontal-scrolling-on-the-overall-landing-page-by-disabling-horizontal-overflow-at-the-document-root-level-html-body-root-app-wrapper-so-the-page-itself-never-moves-sideways",
+      "title": "Prevent horizontal scrolling on the overall landing page by disabling horizontal overflow at the document/root level (html/body/#root/app wrapper), so the page itself never moves sideways.",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wrap-the-carousel-content-inside-a-dedicated-horizontally-scrollable-container-that-is-constrained-to-the-viewport-width-max-width-100-and-uses-overflow-x-auto-so-only-the-carousel-area-can-scroll-horizontally",
+      "title": "Wrap the carousel content inside a dedicated horizontally scrollable container that is constrained to the viewport width (max-width: 100%) and uses `overflow-x: auto` so only the carousel area can scroll horizontally.",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-and-fix-any-layout-css-in-the-landing-page-including-swipecarouselsection-and-its-child-wrappers-that-causes-any-element-to-exceed-100vw-or-uses-widths-larger-than-100-100vw-remove-or-replace-such-widths-so-no-content-can-push-the-page-wider-than-the-viewport",
+      "title": "Audit and fix any layout/CSS in the landing page (including SwipeCarouselSection and its child wrappers) that causes any element to exceed `100vw` or uses widths larger than `100%`/`100vw`; remove or replace such widths so no content can push the page wider than the viewport.",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-carousel-slides-use-a-flex-based-layout-that-does-not-stretch-beyond-the-screen-width-each-slide-constrained-to-the-viewport-container-width-while-maintaining-the-intended-carousel-behavior",
+      "title": "Ensure carousel slides use a flex-based layout that does not stretch beyond the screen width (each slide constrained to the viewport/container width) while maintaining the intended carousel behavior.",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-components-landing-swipecarouselsection-tsx-slightly-reduce-the-vertical-spacing-between-the-carousel-image-block-and-the-carousel-text-block-while-keeping-the-existing-mobile-first-vertical-flow-image-on-top-text-below-and-keeping-all-carousel-copy-unchanged",
+      "title": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-components-landing-swipecarouselsection-tsx-slightly-reduce-line-spacing-leading-within-the-carousel-text-block-title-description-bullets-tagline-so-the-text-reads-tighter-while-preserving-readability-and-keeping-all-carousel-copy-unchanged",
+      "title": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-animated-arrow-indicator-on-the-right-side-of-the-carousel-area-in-frontend-src-components-landing-swipecarouselsection-tsx-to-hint-users-can-swipe-scroll-to-the-next-slide-the-indicator-must-be-visually-subtle-consistent-with-the-black-gold-theme-and-must-not-overlap-slide-content-or-the-existing-navigation-controls",
+      "title": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
     {
       "id": "AR-1",
       "summary": "Create TBN marketing landing page using provided images (logo, dashboard, and carousel slides) with the supplied copy and sections (hero, app section, auto-advancing carousel, closing, testimonials, FAQ).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Adjust layouts so images and text are separated (not combined/overlapping) to prevent the page from looking messy; ensure clear visual separation across sections/carousel and responsive behavior.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add/extend a lightweight regression test for SwipeCarouselSection to ensure the active slide renders its key text content in the DOM (title + description at minimum), preventing future layout changes from accidentally hiding slide text again.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Implement a mobile-first carousel slide card layout: full-width centered (no-crop) image on top, 24px side padding, 20–30px image-to-text gap, bold yellow title, 4 well-spaced bullet points, black background with bright yellow accents/white text, rounded container with soft shadow; ensure no overlap, no extra top spacing, symmetric/balanced; auto-scroll horizontal with swipe + smooth transitions; fit within one mobile screen without scrolling and be responsive.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Adjust the feature/carousel section layout on mobile so the feature image is constrained (max-height 40vh, width 100%, object-fit: contain, centered, rounded corners, keep aspect ratio, no cropping/no vertical stretching) and the full slide/section (image + heading + bullet points + button) fits within 100vh without scrolling; apply spacing rules: 24px side padding, 24–32px below image, 16–20px between bullet points, balanced vertical spacing, and avoid pushing text below the fold.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Update/extend the lightweight SwipeCarouselSection regression test to assert the presence of the slide title and description and to sanity-check the mobile layout contract for this change (e.g., the slide image wrapper includes the expected max-height constraint class/style and bullets render with the expected count).",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Replace the existing 8 carousel slide images with the newly uploaded carousel screenshots provided by the user (old carousel images should no longer be used).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Update the carousel slide image+text composition to match the newly uploaded reference screenshot (use it as the visual layout target for how the image and text should appear together).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Remove the entire top header/navigation bar so no logo/menu icon/navigation is visible; treat as a single landing page without a visible top nav.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "In the carousel section, increase the slide image size and reduce the text font size while keeping the carousel text exactly as it was earlier (do not change language or rewrite into forced bullet/4-point format).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Restore `tbnCopy.carousel.slides` content to the version that existed before the carousel text was rewritten into forced bullet points and/or otherwise altered; keep the copy in English and do not introduce new phrasing.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Update the SwipeCarouselSection regression test(s) to reflect the restored carousel copy/rendering rules (ensure title/description render, and if a features list exists it is not artificially limited to 4 items).",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Improve the App section’s main dashboard image layout so it displays at its natural/aspect-correct size (no awkward cropping/stretching) and surround it with a shiny/stylish frame/treatment to give an exclusive premium look.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Update carousel slide text to exactly match the user-provided copy (including emojis, line breaks, and varying bullet counts), and center/align the carousel text block with the slide image to improve overall alignment and attractiveness.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Implement/extend the SwipeCarouselSection frontend test (frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx) to validate that the active slide renders the user-provided title text and that bullet rendering matches the content model (i.e., bullets appear only when provided and do not enforce a fixed count).",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Remove/hide the deployment domain validation message/banner from the start/top of the landing page so it is not shown at the beginning of the page.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Improve image loading behavior so screenshots do not appear significantly after the text (reduce perceived late-loading / layout shift; ensure images load promptly and smoothly).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Reduce line spacing within the carousel slide text block (tighter leading/vertical spacing between lines) and refine overall carousel spacing/alignment to look polished.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Implement a lightweight regression test in `frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx` to prevent future regressions where the carousel layout change hides/removes content: verify the active slide renders (a) title, (b) description, (c) bullet items only when provided, and (d) the slide image element uses non-cropping behavior (e.g., includes an `object-contain` class).",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Prevent horizontal scrolling on the main page: set body overflow-x hidden, ensure no element exceeds 100vw, remove any widths >100%/100vw; wrap the horizontal carousel in its own max-width:100% container with overflow-x:auto for smooth in-section scrolling; ensure slides use flex and don’t stretch beyond screen width.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Add an animated right-side arrow indicator on the carousel to hint users can swipe/scroll through slides (visible on relevant breakpoints; should not overlap slide content or controls).",
       "reqIds": [],
       "status": "pending"
     }

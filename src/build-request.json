@@ -1,78 +1,85 @@
 {
   "kind": "build_request",
-  "title": "Fix logo and image sizing for seamless, full-size TBN landing page visuals",
+  "title": "Tighten SwipeCarouselSection spacing and add animated right-arrow indicator",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-6",
-      "text": "Improve the TBN logo rendering in the header, hero, and footer so it looks crisp, well-sized, and visually balanced on both mobile and desktop (no awkward cropping, stretching, or low-contrast appearance). If the current logo asset (\"/assets/IMG_7410.jpeg\") cannot be made to look good via sizing/padding/background treatment, switch to the alternate provided logo asset (\"/assets/IMG_7410-1.jpeg\") for the logo placements.",
+      "id": "REQ-61",
+      "text": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "Tbn app logo is not looking good"
+          "Can you slightly reduce spacing between carousel image and its text"
         ]
       },
       "acceptanceCriteria": [
-        "Header logo remains vertically centered within the 64px header and has consistent visual height across breakpoints (no squished look).",
-        "Hero logo is prominent and sharp, with appropriate padding/containment so it does not feel small or lost.",
-        "Footer logo matches the same visual treatment as header/hero (consistent sizing style).",
-        "Logo never appears stretched (maintains aspect ratio) and does not clip on small screens."
+        "On mobile and desktop, the gap between the slide image and the start of the text block is visibly smaller than before, without causing overlap/clipping.",
+        "The slide image remains fully visible (non-cropped) and keeps `object-fit: contain` behavior.",
+        "No carousel text in `frontend/src/content/tbnCopy.ts` is modified (wording, emojis, line breaks, and which slides have bullets remain exactly the same)."
       ]
     },
     {
-      "id": "REQ-7",
-      "text": "Adjust the App section dashboard image and the carousel slide images to display at an appropriately large, responsive size so they feel \"full size\" and integrated into the layout, while preserving aspect ratio and avoiding excessive empty letterboxing. Ensure images scale smoothly from mobile to desktop.",
+      "id": "REQ-62",
+      "text": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "None other images are full size",
-          "The images should be well shown well integrated proper size and should feel smooth amd seamless in website"
+          "And slightly reduce spacing between lines in carousel text"
         ]
       },
       "acceptanceCriteria": [
-        "App section dashboard image spans the available content width and feels large on desktop (not confined by overly small max-width/contain behavior).",
-        "Carousel images feel full and immersive within the carousel frame across breakpoints (no tiny image floating in a large black box).",
-        "No image appears distorted; aspect ratios are preserved.",
-        "No layout shift/jank occurs when images load (container sizing remains stable)."
+        "Line spacing within the description and bullet lines is slightly tighter than before (reduced leading), but remains readable on mobile and desktop.",
+        "Spacing reduction does not cause text to collide with bullets, markers, or other UI elements.",
+        "No changes are made to the actual carousel copy content in `frontend/src/content/tbnCopy.ts`."
       ]
     },
     {
-      "id": "REQ-8",
-      "text": "Refine image integration with the site theme so screenshots and the logo feel seamless with the dark + gold TBN brand styling: apply consistent framing (border radius, borders, shadows), background treatments behind images, and spacing so images visually match the website theme and colors.",
+      "id": "REQ-63",
+      "text": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "Also match pics and website theme and colors"
+          "Also add a animated arrow on right indicating carousel"
         ]
       },
       "acceptanceCriteria": [
-        "All major images (logo, dashboard, carousel slides) share a consistent visual system (same rounding, border/shadow style).",
-        "Image containers/backgrounds complement the dark theme and gold accents without reducing readability or contrast.",
-        "Overall page looks cohesive: images do not feel pasted-on; transitions between sections feel smooth and consistent."
+        "A right-side arrow indicator is visible within the carousel section and has a continuous subtle animation (e.g., gentle nudge/pulse) to suggest horizontal movement.",
+        "The arrow does not block/cover the slide image, slide text, pagination dots, or prev/next buttons on common mobile and desktop breakpoints.",
+        "The arrow is non-interactive (does not capture clicks/drags intended for the carousel) and does not introduce horizontal page overflow/scrolling.",
+        "The arrow indicator uses accessible markup (decorative arrow is `aria-hidden` or otherwise does not create confusing screen reader output)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files in frontend immutablePaths (e.g., frontend/src/main.tsx, frontend/src/hooks/useActor.ts, frontend/src/components/ui).",
-    "Keep images as static frontend assets (do not serve images via backend).",
-    "Do not change the marketing copy in frontend/src/content/tbnCopy.ts."
+    "Do not change any carousel copy/wording; keep all text exactly as it currently exists in `frontend/src/content/tbnCopy.ts` (including emojis and line breaks).",
+    "Do not introduce any layout that causes horizontal scrolling of the overall page (keep root overflow-x hidden behavior intact).",
+    "Do not edit frontend immutable paths listed in SYSTEM_CONTEXT (compose existing UI components rather than modifying them)."
   ],
   "nonGoals": [
-    "Adding new sections or features beyond visual/layout improvements for the existing landing page.",
-    "Backend changes (backend/main.mo should remain unused for image delivery).",
-    "Introducing new third-party image/CDN services."
+    "Do not change carousel behavior (auto-advance timing, swipe/drag thresholds, or navigation logic) beyond what is necessary to place the arrow indicator safely.",
+    "Do not add new backend functionality or modify Motoko canister code."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

@@ -1,95 +1,64 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Seamless TBN landing page logo + image sizing and theme integration",
+  "title": "Tighten SwipeCarouselSection spacing and add subtle animated right-arrow indicator",
   "requirements": [
     {
-      "id": "REQ-6",
-      "summary": "Make the TBN logo crisp, consistently sized, and well-balanced in header/hero/footer across breakpoints; switch to alternate logo asset if needed.",
+      "id": "REQ-61",
+      "summary": "Reduce vertical gap between carousel image block and text block while preserving mobile-first vertical flow and existing copy.",
       "acceptanceCriteria": [
-        "Header logo remains vertically centered within the 64px header and has consistent visual height across breakpoints (no squished look).",
-        "Hero logo is prominent and sharp, with appropriate padding/containment so it does not feel small or lost.",
-        "Footer logo matches the same visual treatment as header/hero (consistent sizing style).",
-        "Logo never appears stretched (maintains aspect ratio) and does not clip on small screens."
+        "On mobile and desktop, the gap between the slide image and the start of the text block is visibly smaller than before, without causing overlap/clipping.",
+        "The slide image remains fully visible (non-cropped) and keeps `object-fit: contain` behavior.",
+        "No carousel text in `frontend/src/content/tbnCopy.ts` is modified (wording, emojis, line breaks, and which slides have bullets remain exactly the same)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/landing/TbnLogo.tsx",
-          "operation": "create",
-          "description": "Create a shared TbnLogo component that standardizes logo rendering (asset selection between /assets/IMG_7410.jpeg and /assets/IMG_7410-1.jpeg, aspect-ratio-safe sizing, and consistent framing for dark+gold theme). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/HeaderNav.tsx",
+          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
           "operation": "modify",
-          "description": "Replace the header <img> logo usage with the shared TbnLogo component and tune sizing so it stays vertically centered in the 64px header, preserves aspect ratio, and avoids clipping on small screens. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/HeroSection.tsx",
-          "operation": "modify",
-          "description": "Replace the hero <img> logo usage with the shared TbnLogo component and adjust responsive size/padding so the logo reads prominently on mobile and desktop without appearing small or low-contrast. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/FooterNav.tsx",
-          "operation": "modify",
-          "description": "Replace the footer <img> logo usage with the shared TbnLogo component to match header/hero treatment and ensure consistent visual sizing and aspect ratio. Verify the component's usage instructions before implementing."
+          "description": "Tighten the vertical spacing between the image container and the text container by reducing the wrapping stack gap classes (e.g., adjust the `flex flex-col gap-*` values) while keeping the image-above-text layout and keeping MediaFrame `objectFit=\"contain\"` unchanged."
         }
       ]
     },
     {
-      "id": "REQ-7",
-      "summary": "Make the App section dashboard image and carousel slide images feel full-size and responsive while preserving aspect ratio and preventing layout shift.",
+      "id": "REQ-62",
+      "summary": "Reduce line spacing (leading) within carousel text elements (title/description/bullets/tagline) for a tighter but readable layout without changing copy.",
       "acceptanceCriteria": [
-        "App section dashboard image spans the available content width and feels large on desktop (not confined by overly small max-width/contain behavior).",
-        "Carousel images feel full and immersive within the carousel frame across breakpoints (no tiny image floating in a large black box).",
-        "No image appears distorted; aspect ratios are preserved.",
-        "No layout shift/jank occurs when images load (container sizing remains stable)."
+        "Line spacing within the description and bullet lines is slightly tighter than before (reduced leading), but remains readable on mobile and desktop.",
+        "Spacing reduction does not cause text to collide with bullets, markers, or other UI elements.",
+        "No changes are made to the actual carousel copy content in `frontend/src/content/tbnCopy.ts`."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/landing/MediaFrame.tsx",
-          "operation": "create",
-          "description": "Create a shared MediaFrame component for screenshot-like images that provides stable container sizing (e.g., consistent aspect ratio strategy), responsive scaling, and a theme-aligned frame so images can render \"full\" without distortion. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/AppSection.tsx",
-          "operation": "modify",
-          "description": "Update the dashboard image presentation to use MediaFrame and adjust layout constraints so the image fills the available section width responsively (including on large screens), preserves aspect ratio, and reserves space to avoid load-time jank. Verify the component's usage instructions before implementing."
-        },
-        {
           "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
           "operation": "modify",
-          "description": "Update the carousel slide image container and image fit strategy so slides appear immersive and full within the frame (reducing letterboxing), preserve aspect ratio, and keep the carousel height stable across breakpoints. Verify the component's usage instructions before implementing."
+          "description": "Adjust Tailwind leading classes within the carousel text block (e.g., replace `leading-relaxed` / `leading-tight` as needed with slightly tighter leading) for description, bullet text, and tagline while preserving readability and not modifying any copy coming from `tbnCopy`."
         }
       ]
     },
     {
-      "id": "REQ-8",
-      "summary": "Unify logo, dashboard, and carousel visuals with a consistent dark+gold theme-aligned framing system (radius, borders, shadows, backgrounds, spacing).",
+      "id": "REQ-63",
+      "summary": "Add a subtle, continuously animated, non-interactive right-side arrow indicator within the carousel section that doesn’t overlap content or existing controls and doesn’t introduce horizontal overflow.",
       "acceptanceCriteria": [
-        "All major images (logo, dashboard, carousel slides) share a consistent visual system (same rounding, border/shadow style).",
-        "Image containers/backgrounds complement the dark theme and gold accents without reducing readability or contrast.",
-        "Overall page looks cohesive: images do not feel pasted-on; transitions between sections feel smooth and consistent."
+        "A right-side arrow indicator is visible within the carousel section and has a continuous subtle animation (e.g., gentle nudge/pulse) to suggest horizontal movement.",
+        "The arrow does not block/cover the slide image, slide text, pagination dots, or prev/next buttons on common mobile and desktop breakpoints.",
+        "The arrow is non-interactive (does not capture clicks/drags intended for the carousel) and does not introduce horizontal page overflow/scrolling.",
+        "The arrow indicator uses accessible markup (decorative arrow is `aria-hidden` or otherwise does not create confusing screen reader output)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/tailwind.config.js",
           "operation": "modify",
-          "description": "Add shared theme-aligned utility/classes for image framing (consistent radius, subtle gold-tinted border, shadow/glow, and background treatment) to be reused by TbnLogo and MediaFrame without changing marketing copy. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/TbnLogo.tsx",
-          "operation": "modify",
-          "description": "Apply the shared framing/spacing styles from frontend/src/index.css so the logo integrates with the dark+gold theme consistently across header/hero/footer and maintains readability/contrast. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/landing/MediaFrame.tsx",
-          "operation": "modify",
-          "description": "Apply the shared framing/spacing styles from frontend/src/index.css so dashboard and carousel screenshots match the same visual system (radius, border/shadow, background treatment) for cohesive section transitions. Verify the component's usage instructions before implementing."
+          "description": "Add a dedicated subtle horizontal nudge/pulse keyframes + animation utility (e.g., a gentle right-arrow hint animation) to support the carousel indicator motion without relying on inline styles."
         },
         {
           "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
           "operation": "modify",
-          "description": "Align carousel container backgrounds and spacing with the shared framing system (remove harsh black boxing where possible, ensure consistent border/shadow/radius) so images feel seamless with the site theme. Verify the component's usage instructions before implementing."
+          "description": "Render a decorative right-arrow indicator (reuse existing ChevronRight icon) positioned absolutely within the carousel area (inside a `relative` container) using `pointer-events-none`, subtle black+gold styling, and the new animation utility; add layout padding/gutter as needed to ensure it never overlaps slide image/text or navigation controls and does not create horizontal page overflow; mark the indicator `aria-hidden`."
+        },
+        {
+          "path": "frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx",
+          "operation": "modify",
+          "description": "Add a minimal render test ensuring the arrow indicator is present with decorative accessibility treatment (e.g., `aria-hidden`) and does not interfere with the existing navigation controls (sanity check selectors/testids)."
         }
       ]
     }

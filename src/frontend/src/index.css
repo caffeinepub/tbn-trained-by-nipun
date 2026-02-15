@@ -3,117 +3,188 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --radius: 0.625rem;
-        --background: 0.145 0 0;
-        --foreground: 0.985 0 0;
-        --card: 0.205 0 0;
-        --card-foreground: 0.985 0 0;
-        --popover: 0.269 0 0;
-        --popover-foreground: 0.985 0 0;
-        --primary: 0.922 0 0;
-        --primary-foreground: 0.205 0 0;
-        --secondary: 0.269 0 0;
-        --secondary-foreground: 0.985 0 0;
-        --muted: 0.269 0 0;
-        --muted-foreground: 0.708 0 0;
-        --accent: 0.371 0 0;
-        --accent-foreground: 0.985 0 0;
-        --destructive: 0.704 0.191 22.216;
-        --destructive-foreground: 0.205 0 0;
-        --border: 1 0 0 / 10%;
-        --input: 1 0 0 / 15%;
-        --ring: 0.556 0 0;
-        --chart-1: 0.488 0.243 264.376;
-        --chart-2: 0.696 0.17 162.48;
-        --chart-3: 0.769 0.188 70.08;
-        --chart-4: 0.627 0.265 303.9;
-        --chart-5: 0.645 0.246 16.439;
-        --sidebar: 0.205 0 0;
-        --sidebar-foreground: 0.985 0 0;
-        --sidebar-primary: 0.488 0.243 264.376;
-        --sidebar-primary-foreground: 0.985 0 0;
-        --sidebar-accent: 0.269 0 0;
-        --sidebar-accent-foreground: 0.985 0 0;
-        --sidebar-border: 1 0 0 / 10%;
-        --sidebar-ring: 0.556 0 0;
-        --gold: 0.769 0.188 70.08;
-    }
+  :root {
+    /* Background & Foreground */
+    --background: 0% 0 0; /* Pure black */
+    --foreground: 100% 0 0; /* Pure white */
 
-    .dark {
-        --background: 0.145 0 0;
-        --foreground: 0.985 0 0;
-        --card: 0.205 0 0;
-        --card-foreground: 0.985 0 0;
-        --popover: 0.269 0 0;
-        --popover-foreground: 0.985 0 0;
-        --primary: 0.922 0 0;
-        --primary-foreground: 0.205 0 0;
-        --secondary: 0.269 0 0;
-        --secondary-foreground: 0.985 0 0;
-        --muted: 0.269 0 0;
-        --muted-foreground: 0.708 0 0;
-        --accent: 0.371 0 0;
-        --accent-foreground: 0.985 0 0;
-        --destructive: 0.704 0.191 22.216;
-        --destructive-foreground: 0.205 0 0;
-        --border: 1 0 0 / 10%;
-        --input: 1 0 0 / 15%;
-        --ring: 0.556 0 0;
-        --chart-1: 0.488 0.243 264.376;
-        --chart-2: 0.696 0.17 162.48;
-        --chart-3: 0.769 0.188 70.08;
-        --chart-4: 0.627 0.265 303.9;
-        --chart-5: 0.645 0.246 16.439;
-        --sidebar: 0.205 0 0;
-        --sidebar-foreground: 0.985 0 0;
-        --sidebar-primary: 0.488 0.243 264.376;
-        --sidebar-primary-foreground: 0.985 0 0;
-        --sidebar-accent: 0.269 0 0;
-        --sidebar-accent-foreground: 0.985 0 0;
-        --sidebar-border: 1 0 0 / 10%;
-        --sidebar-ring: 0.556 0 0;
-        --gold: 0.769 0.188 70.08;
-    }
+    /* Card */
+    --card: 20% 0 0; /* Very dark gray */
+    --card-foreground: 100% 0 0;
+
+    /* Popover */
+    --popover: 20% 0 0;
+    --popover-foreground: 100% 0 0;
+
+    /* Primary - Gold */
+    --primary: 85% 0.15 85; /* Bright gold */
+    --primary-foreground: 20% 0 0;
+
+    /* Secondary */
+    --secondary: 30% 0 0;
+    --secondary-foreground: 100% 0 0;
+
+    /* Muted */
+    --muted: 25% 0 0;
+    --muted-foreground: 70% 0 0;
+
+    /* Accent - Gold */
+    --accent: 85% 0.15 85;
+    --accent-foreground: 20% 0 0;
+
+    /* Destructive */
+    --destructive: 55% 0.20 25;
+    --destructive-foreground: 100% 0 0;
+
+    /* Border */
+    --border: 30% 0 0;
+    --input: 30% 0 0;
+    --ring: 85% 0.15 85;
+
+    /* Chart colors */
+    --chart-1: 85% 0.15 85;
+    --chart-2: 70% 0.15 150;
+    --chart-3: 60% 0.15 200;
+    --chart-4: 75% 0.15 50;
+    --chart-5: 65% 0.15 300;
+
+    /* Sidebar */
+    --sidebar: 20% 0 0;
+    --sidebar-foreground: 100% 0 0;
+    --sidebar-primary: 85% 0.15 85;
+    --sidebar-primary-foreground: 20% 0 0;
+    --sidebar-accent: 30% 0 0;
+    --sidebar-accent-foreground: 100% 0 0;
+    --sidebar-border: 30% 0 0;
+    --sidebar-ring: 85% 0.15 85;
+
+    /* Gold accent */
+    --gold: 85% 0.15 85;
+
+    /* Radius */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Same as root for this dark theme */
+    --background: 0% 0 0;
+    --foreground: 100% 0 0;
+    --card: 20% 0 0;
+    --card-foreground: 100% 0 0;
+    --popover: 20% 0 0;
+    --popover-foreground: 100% 0 0;
+    --primary: 85% 0.15 85;
+    --primary-foreground: 20% 0 0;
+    --secondary: 30% 0 0;
+    --secondary-foreground: 100% 0 0;
+    --muted: 25% 0 0;
+    --muted-foreground: 70% 0 0;
+    --accent: 85% 0.15 85;
+    --accent-foreground: 20% 0 0;
+    --destructive: 55% 0.20 25;
+    --destructive-foreground: 100% 0 0;
+    --border: 30% 0 0;
+    --input: 30% 0 0;
+    --ring: 85% 0.15 85;
+    --chart-1: 85% 0.15 85;
+    --chart-2: 70% 0.15 150;
+    --chart-3: 60% 0.15 200;
+    --chart-4: 75% 0.15 50;
+    --chart-5: 65% 0.15 300;
+    --sidebar: 20% 0 0;
+    --sidebar-foreground: 100% 0 0;
+    --sidebar-primary: 85% 0.15 85;
+    --sidebar-primary-foreground: 20% 0 0;
+    --sidebar-accent: 30% 0 0;
+    --sidebar-accent-foreground: 100% 0 0;
+    --sidebar-border: 30% 0 0;
+    --sidebar-ring: 85% 0.15 85;
+    --gold: 85% 0.15 85;
+  }
 }
 
 @layer base {
-    * {
-        @apply border-border;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-        font-feature-settings: 'rlig' 1, 'calt' 1;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    *:focus-visible {
-        @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
-    }
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  
+  #root {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
 }
 
 @layer components {
-    /* Shared image framing system for theme consistency */
-    .tbn-logo-frame {
-        @apply rounded-xl p-3 border shadow-lg;
-        background: linear-gradient(to bottom right, oklch(var(--card)), oklch(var(--card) / 0.8));
-        border-color: oklch(var(--gold) / 0.2);
-        box-shadow: 0 4px 20px -2px oklch(var(--gold) / 0.15), 0 0 40px -10px oklch(var(--gold) / 0.1);
-    }
+  /* TBN Logo Frame */
+  .tbn-logo-frame {
+    @apply relative rounded-lg overflow-hidden;
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+    border: 2px solid rgba(234, 179, 8, 0.3);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 0 rgba(234, 179, 8, 0.1);
+  }
 
-    .tbn-media-frame {
-        @apply rounded-2xl shadow-2xl overflow-hidden;
-        background: linear-gradient(to bottom right, oklch(var(--card) / 0.5), oklch(var(--background)));
-        border: 1px solid oklch(var(--gold) / 0.15);
-        box-shadow: 0 8px 32px -4px oklch(var(--gold) / 0.12), 0 0 60px -15px oklch(var(--gold) / 0.08);
-    }
+  /* Media Frame for carousel images */
+  .tbn-media-frame {
+    @apply bg-black rounded-xl md:rounded-2xl overflow-hidden;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
 
-    .tbn-media-inner {
-        @apply relative w-full;
-        background: linear-gradient(to bottom, oklch(var(--muted) / 0.2), oklch(var(--background) / 0.5));
+  /* Premium Frame for App Dashboard */
+  .tbn-premium-frame {
+    @apply relative rounded-2xl overflow-hidden p-1;
+    background: linear-gradient(135deg, 
+      rgba(234, 179, 8, 0.4) 0%, 
+      rgba(234, 179, 8, 0.1) 25%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(234, 179, 8, 0.1) 75%,
+      rgba(234, 179, 8, 0.4) 100%
+    );
+    box-shadow: 
+      0 0 30px rgba(234, 179, 8, 0.3),
+      0 0 60px rgba(234, 179, 8, 0.2),
+      0 10px 25px -5px rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px rgba(234, 179, 8, 0.2);
+    animation: premium-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes premium-glow {
+    0%, 100% {
+      box-shadow: 
+        0 0 30px rgba(234, 179, 8, 0.3),
+        0 0 60px rgba(234, 179, 8, 0.2),
+        0 10px 25px -5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(234, 179, 8, 0.2);
     }
+    50% {
+      box-shadow: 
+        0 0 40px rgba(234, 179, 8, 0.4),
+        0 0 80px rgba(234, 179, 8, 0.3),
+        0 10px 25px -5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(234, 179, 8, 0.3);
+    }
+  }
+
+  /* Carousel horizontal scroll container */
+  .carousel-scroll-container {
+    overflow-x: hidden;
+    max-width: 100%;
+    scroll-behavior: smooth;
+  }
 }

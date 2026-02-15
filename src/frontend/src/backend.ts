@@ -89,10 +89,26 @@ export class ExternalBlob {
         return this;
     }
 }
+export type Documentation = string;
 export interface backendInterface {
+    getDomainValidationDocumentation(): Promise<Documentation>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async getDomainValidationDocumentation(): Promise<Documentation> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDomainValidationDocumentation();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDomainValidationDocumentation();
+            return result;
+        }
+    }
 }
 export interface CreateActorOptions {
     agent?: Agent;

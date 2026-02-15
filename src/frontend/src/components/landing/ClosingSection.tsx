@@ -9,7 +9,7 @@ export default function ClosingSection() {
             {tbnCopy.closing.headline}
           </h2>
           
-          <p className="text-xl md:text-2xl text-muted-foreground">
+          <p className="text-xl md:text-2xl text-muted-foreground whitespace-pre-line">
             {tbnCopy.closing.subheadline}
           </p>
 
