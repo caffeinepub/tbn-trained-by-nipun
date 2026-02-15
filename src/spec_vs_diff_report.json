@@ -1,24 +1,26 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T15:34:36.702Z",
-  "summary": "REQ-61 and REQ-62 appear to be implemented via tighter gap between image/text and reduced text leading (as described in the repo summary), and REQ-63 is partially implemented with a subtle, animated, non-interactive right-arrow indicator plus a Tailwind keyframe. However, the arrow indicator is explicitly hidden on small screens (\"hidden md:block\"), which may conflict with the requirement that the indicator be visible on common mobile and desktop breakpoints.",
+  "generatedAt": "2026-02-15T14:14:00.699Z",
+  "summary": "REQ-1 and REQ-2 appear implemented via a new landing image preloading hook, wiring it into the landing page, and adding automatic + manual retry behavior to MediaFrame. REQ-3 (static asset optimization/recompression with unchanged URLs) is not evidenced in the diff summary.",
   "missing_requirements": [
     {
-      "id": "REQ-63",
-      "requirement": "Animated right-side arrow indicator should be visible within the carousel section on common mobile and desktop breakpoints, without overlapping content/controls and without causing horizontal overflow; decorative arrow should be accessible (aria-hidden or similar).",
-      "reason": "The arrow indicator is conditionally rendered only for md+ breakpoints (\"hidden md:block\"), so it will not be visible on mobile screens, which appears to fall short of the requirement for visibility on common mobile and desktop breakpoints.",
+      "id": "REQ-3",
+      "requirement": "Optimize the static image assets used by the landing page to reduce total bytes while keeping all existing image URLs unchanged.",
+      "reason": "The diff shows only TypeScript/TSX and HTML changes (preloading logic and retry logic). There is no evidence of any image files in the static assets folder being recompressed/modified, nor any before/after size comparison.",
       "evidence": [
-        "frontend/src/components/landing/SwipeCarouselSection.tsx"
+        "File diff summary shows only: frontend/src/hooks/useLandingImagePreload.ts (added), frontend/src/components/landing/MediaFrame.tsx (modified), frontend/src/pages/TbnLandingPage.tsx (modified), frontend/index.html (modified), plus summaries/project_state.json. No /assets image files are listed as modified."
       ]
     }
   ],
   "hallucinated_features": [],
-  "confidence": 0.62,
+  "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/landing/SwipeCarouselSection.tsx",
-    "frontend/tailwind.config.js",
+    "frontend/index.html",
+    "frontend/src/components/landing/MediaFrame.tsx",
+    "frontend/src/hooks/useLandingImagePreload.ts",
+    "frontend/src/pages/TbnLandingPage.tsx",
     "project_state.json"
   ]
 }

@@ -1,18 +1,14 @@
 import { tbnCopy } from '../../content/tbnCopy';
-import TbnLogo from './TbnLogo';
+import MediaFrame from './MediaFrame';
+import { Separator } from '@/components/ui/separator';
 
 export default function HeroSection() {
   return (
     <section id="hero" className="relative overflow-hidden bg-gradient-to-b from-background via-background to-card/30 max-w-full">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/5 via-transparent to-transparent" />
       
-      <div className="container relative py-16 md:py-24 lg:py-32 max-w-full">
+      <div className="container relative pt-16 pb-6 md:pt-20 md:pb-8 lg:pt-24 lg:pb-10 max-w-full">
         <div className="mx-auto max-w-4xl text-center space-y-8 px-4">
-          {/* Logo */}
-          <div className="flex justify-center">
-            <TbnLogo size="xl" />
-          </div>
-
           {/* Problem Statement */}
           <div className="space-y-4">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight break-words">
@@ -34,19 +30,40 @@ export default function HeroSection() {
           </div>
 
           {/* Supporting Line */}
-          <p className="text-base md:text-lg text-muted-foreground italic break-words">
+          <p className="text-base md:text-lg text-muted-foreground break-words">
             {tbnCopy.hero.supportingLine}
           </p>
 
           {/* Main Headline */}
-          <div className="space-y-3 pt-8">
+          <div className="space-y-6 pt-8">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-gold via-yellow-400 to-gold bg-clip-text text-transparent break-words">
               {tbnCopy.hero.headline}
             </h2>
-            <p className="text-xl md:text-2xl text-foreground/80 break-words">
-              {tbnCopy.hero.subheadline}
-            </p>
           </div>
+
+          {/* Dashboard Image */}
+          <div className="flex justify-center py-4 w-full max-w-full">
+            <div className="tbn-premium-frame max-w-md w-full">
+              <MediaFrame 
+                src="/assets/IMG_9304.jpeg" 
+                alt="TBN App Dashboard"
+                aspectRatio="9/16"
+                className="w-full max-w-full"
+                objectFit="contain"
+                priority={true}
+              />
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="flex justify-center py-2">
+            <Separator className="w-24 md:w-32 bg-gold/30" />
+          </div>
+
+          {/* Italic Tagline */}
+          <p className="text-base md:text-lg text-muted-foreground italic break-words">
+            {tbnCopy.hero.tagline}
+          </p>
         </div>
       </div>
     </section>

@@ -1,50 +1,74 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T15:34:36.706Z",
+  "generatedAt": "2026-02-15T14:14:00.702Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 3,
-    "implemented": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-61",
-        "summary": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
+        "id": "REQ-1",
+        "summary": "Preload landing-page images at initial site open (before the user swipes) so carousel and transformation images are already in the browser cache.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/landing/SwipeCarouselSection.tsx"
+          "frontend/src/hooks/useLandingImagePreload.ts",
+          "frontend/src/pages/TbnLandingPage.tsx",
+          "frontend/index.html"
         ],
         "matchedFiles": [
-          "frontend/src/components/landing/SwipeCarouselSection.tsx"
+          "frontend/src/hooks/useLandingImagePreload.ts",
+          "frontend/src/pages/TbnLandingPage.tsx",
+          "frontend/index.html"
         ]
       },
       {
-        "id": "REQ-62",
-        "summary": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
+        "id": "REQ-2",
+        "summary": "Make image loading more resilient so intermittent failures do not get stuck showing 'Image unavailable' and can recover automatically.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/landing/SwipeCarouselSection.tsx"
+          "frontend/src/components/landing/MediaFrame.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/landing/SwipeCarouselSection.tsx"
+          "frontend/src/components/landing/MediaFrame.tsx"
         ]
       },
       {
-        "id": "REQ-63",
-        "summary": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
-        "status": "implemented",
+        "id": "REQ-3",
+        "summary": "Optimize the static image assets used by the landing page to reduce total bytes while keeping all existing image URLs unchanged.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/tailwind.config.js",
-          "frontend/src/components/landing/SwipeCarouselSection.tsx",
-          "frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx"
+          "frontend/public/assets/IMG_9304.jpeg",
+          "frontend/public/assets/IMG_9308.jpeg",
+          "frontend/public/assets/IMG_9284-1.jpeg",
+          "frontend/public/assets/IMG_9292-1.jpeg",
+          "frontend/public/assets/IMG_9295-1.jpeg",
+          "frontend/public/assets/IMG_9294-1.jpeg",
+          "frontend/public/assets/IMG_9293-1.jpeg",
+          "frontend/public/assets/IMG_9296-1.jpeg",
+          "frontend/public/assets/quality_restoration_20260214165854157-1.jpeg",
+          "frontend/public/assets/quality_restoration_20260215131917797-1.jpeg",
+          "frontend/public/assets/IMG_1243-1.jpeg",
+          "frontend/public/assets/IMG_1245-1.jpeg",
+          "frontend/public/assets/IMG_1244-1.jpeg",
+          "frontend/public/assets/FA56354F-6223-4844-933C-9B9E7EA31806-1.jpeg",
+          "frontend/public/assets/B2F37900-801E-478B-8203-2D4D4B92106D-1.jpeg",
+          "frontend/public/assets/quality_restoration_20251122155053193-1.jpeg",
+          "frontend/public/assets/quality_restoration_20251124165416610-1.jpeg",
+          "frontend/public/assets/B3597C3F-2850-43A4-9A43-BF060367A3AE-1.jpeg",
+          "frontend/public/assets/6D5D52B1-AC14-4525-B9C4-352D5C57C737-1.jpeg",
+          "frontend/public/assets/A7B25DAD-D3CF-4A7B-ADAA-A2E73B9C018E-1.jpeg",
+          "frontend/public/assets/collage_export_7A9AC881-668E-423A-A8F3-B9B5C8A4B1BB-1.jpeg",
+          "frontend/public/assets/collage_export_8BBDEFED-8722-46B8-AD18-29A87123C7F9-1.jpeg",
+          "frontend/public/assets/IMG_9331-1.jpeg",
+          "frontend/public/assets/IMG_9332.jpeg",
+          "frontend/public/assets/quality_restoration_20260215163855145.jpeg",
+          "frontend/public/assets/IMG_9339.jpeg"
         ],
-        "matchedFiles": [
-          "frontend/tailwind.config.js",
-          "frontend/src/components/landing/SwipeCarouselSection.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
@@ -53,8 +77,10 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/landing/SwipeCarouselSection.tsx",
-    "frontend/tailwind.config.js",
+    "frontend/index.html",
+    "frontend/src/components/landing/MediaFrame.tsx",
+    "frontend/src/hooks/useLandingImagePreload.ts",
+    "frontend/src/pages/TbnLandingPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

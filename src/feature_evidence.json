@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-frontend-src-components-landing-swipecarouselsection-tsx-slightly-reduce-the-vertical-spacing-between-the-carousel-image-block-and-the-carousel-text-block-while-keeping-the-existing-mobile-first-vertical-flow-image-on-top-text-below-and-keeping-all-carousel-copy-unchanged",
-      "featureTitle": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
+      "featureId": "feature-preload-landing-page-images-at-initial-site-open-before-the-user-swipes-so-carousel-and-transformation-images-are-already-in-the-browser-cache",
+      "featureTitle": "Preload landing-page images at initial site open (before the user swipes) so carousel and transformation images are already in the browser cache.",
       "files": [
-        "frontend/src/components/landing/SwipeCarouselSection.tsx"
+        "frontend/index.html",
+        "frontend/src/hooks/useLandingImagePreload.ts",
+        "frontend/src/pages/TbnLandingPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,15 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-61"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-in-frontend-src-components-landing-swipecarouselsection-tsx-slightly-reduce-line-spacing-leading-within-the-carousel-text-block-title-description-bullets-tagline-so-the-text-reads-tighter-while-preserving-readability-and-keeping-all-carousel-copy-unchanged",
-      "featureTitle": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
+      "featureId": "feature-make-image-loading-more-resilient-so-intermittent-failures-do-not-get-stuck-showing-image-unavailable-and-can-recover-automatically",
+      "featureTitle": "Make image loading more resilient so intermittent failures do not get stuck showing 'Image unavailable' and can recover automatically.",
       "files": [
-        "frontend/src/components/landing/SwipeCarouselSection.tsx"
+        "frontend/src/components/landing/MediaFrame.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -33,26 +35,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-62"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-an-animated-arrow-indicator-on-the-right-side-of-the-carousel-area-in-frontend-src-components-landing-swipecarouselsection-tsx-to-hint-users-can-swipe-scroll-to-the-next-slide-the-indicator-must-be-visually-subtle-consistent-with-the-black-gold-theme-and-must-not-overlap-slide-content-or-the-existing-navigation-controls",
-      "featureTitle": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
-      "files": [
-        "frontend/src/components/landing/SwipeCarouselSection.tsx",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-63"
+        "REQ-2"
       ],
       "confidence": "high"
     }

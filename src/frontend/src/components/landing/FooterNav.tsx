@@ -1,11 +1,14 @@
 import { Heart } from 'lucide-react';
 import TbnLogo from './TbnLogo';
+import { useDraftVersionLabel } from '../../hooks/useDraftVersionLabel';
 
 export default function FooterNav() {
   const currentYear = new Date().getFullYear();
   const appIdentifier = typeof window !== 'undefined' 
     ? encodeURIComponent(window.location.hostname) 
     : 'tbn-app';
+
+  const { localVersion, backendVersion, versionsMatch } = useDraftVersionLabel();
 
   const navLinks = [
     { label: 'App', href: '#app' },
@@ -68,10 +71,25 @@ export default function FooterNav() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border/40">
-          <p className="text-xs text-center text-muted-foreground">
+        <div className="mt-8 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-center sm:text-left text-muted-foreground">
             © {currentYear} TBN (Trained By Nipun). All rights reserved.
           </p>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-medium text-gold">
+              {localVersion}
+            </span>
+            {versionsMatch !== null && (
+              <span className="text-xs text-muted-foreground">
+                {versionsMatch ? '✓' : '⚠'}
+              </span>
+            )}
+            {backendVersion && backendVersion !== localVersion && (
+              <span className="text-xs text-muted-foreground">
+                (Backend: {backendVersion})
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </footer>

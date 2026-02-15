@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Tighten the layout and typography in the landing page swipe carousel and add a subtle animated right-arrow hint to indicate users can swipe to the next slide.
+**Goal:** Improve landing-page perceived performance and reliability by preloading images on first load, reducing “Image unavailable” occurrences, and optimizing landing-page image bytes without changing URLs.
 
 **Planned changes:**
-- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical gap between the carousel image block and the carousel text block while keeping the image-above-text (mobile-first) flow and leaving all carousel copy unchanged.
-- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) without harming readability or causing collisions, and without changing any copy.
-- In `frontend/src/components/landing/SwipeCarouselSection.tsx`, add a visually subtle, non-interactive, continuously animated right-side arrow indicator consistent with the black + gold theme that does not overlap slide content or existing controls, does not create horizontal overflow, and is marked as decorative for accessibility.
+- Preload all landing-page image URLs referenced in `frontend/src/components/landing/assets.ts` plus the hero image (`/assets/IMG_9304.jpeg`) on initial page open, prioritizing above-the-fold images and deferring the rest to idle/background time so first paint is not blocked.
+- Make `MediaFrame` image loading more resilient by automatically retrying once on failure using a cache-busting URL parameter, then showing the existing error overlay only if the retry fails, with a user action to retry again.
+- Recompress/optimize the static landing-page image files to reduce total bytes while keeping all existing image paths/URLs unchanged.
 
-**User-visible outcome:** The carousel content appears tighter (less whitespace and slightly tighter text), and users see a subtle animated right-arrow hint indicating they can swipe/scroll to view the next slide.
+**User-visible outcome:** Landing-page carousel and transformation images are already cached before swiping, fewer images get stuck on “Image unavailable,” and the landing page loads faster with the same visuals and URLs.

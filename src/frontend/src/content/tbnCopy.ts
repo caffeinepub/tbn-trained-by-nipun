@@ -8,7 +8,7 @@ export const tbnCopy = {
     solution: "You need a system that fits into your busy lifestyle.",
     supportingLine: "That's exactly why we built this app — made for busy professionals like you.",
     headline: "Your Complete Fitness Ecosystem",
-    subheadline: "Made for busy people who want to get fit without going to the gym.",
+    tagline: "Made for busy professionals who want to get fit without going to the gym.",
   },
   app: {
     title: "Everything You Need in One App",
@@ -95,7 +95,10 @@ export const tbnCopy = {
   },
   closing: {
     headline: "One powerful app.",
-    subheadline: "Workouts + Food + Tracking + Progress         =RESULTS",
+    subheadline: {
+      line1: "Workout+Food+Tracking+Progress",
+      line2: "= RESULTS"
+    },
     description: "This is a complete fitness system that has transformed 100+ working professionals like these:",
   },
   trustedBy: {

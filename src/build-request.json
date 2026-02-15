@@ -1,72 +1,72 @@
 {
   "kind": "build_request",
-  "title": "Tighten SwipeCarouselSection spacing and add animated right-arrow indicator",
-  "priority": "normal",
+  "title": "Preload landing page images on first load and reduce 'Image unavailable' errors",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-61",
-      "text": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce the vertical spacing between the carousel image block and the carousel text block, while keeping the existing mobile-first vertical flow (image on top, text below) and keeping all carousel copy unchanged.",
+      "id": "REQ-1",
+      "text": "Preload landing-page images at initial site open (before the user swipes) so carousel and transformation images are already in the browser cache.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "Can you slightly reduce spacing between carousel image and its text"
+          "Images should pre losd itself even before swipe on even opening the website in start"
         ]
       },
       "acceptanceCriteria": [
-        "On mobile and desktop, the gap between the slide image and the start of the text block is visibly smaller than before, without causing overlap/clipping.",
-        "The slide image remains fully visible (non-cropped) and keeps `object-fit: contain` behavior.",
-        "No carousel text in `frontend/src/content/tbnCopy.ts` is modified (wording, emojis, line breaks, and which slides have bullets remain exactly the same)."
+        "When the landing page first renders, the app begins preloading all image URLs referenced in frontend/src/components/landing/assets.ts plus the hero image (/assets/IMG_9304.jpeg).",
+        "Preloading happens without blocking first paint: above-the-fold images load with high priority, while the remainder preload in the background (e.g., after initial render / idle time).",
+        "After initial load, swiping to the next slide does not show the loading spinner for images that have already been preloaded (except in genuine network-failure scenarios)."
       ]
     },
     {
-      "id": "REQ-62",
-      "text": "In `frontend/src/components/landing/SwipeCarouselSection.tsx`, slightly reduce line spacing (leading) within the carousel text block (title/description/bullets/tagline) so the text reads tighter, while preserving readability and keeping all carousel copy unchanged.",
+      "id": "REQ-2",
+      "text": "Make image loading more resilient so intermittent failures do not get stuck showing 'Image unavailable' and can recover automatically.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "And slightly reduce spacing between lines in carousel text"
+          "sometimes it shows inage unavailable"
         ]
       },
       "acceptanceCriteria": [
-        "Line spacing within the description and bullet lines is slightly tighter than before (reduced leading), but remains readable on mobile and desktop.",
-        "Spacing reduction does not cause text to collide with bullets, markers, or other UI elements.",
-        "No changes are made to the actual carousel copy content in `frontend/src/content/tbnCopy.ts`."
+        "If an image fails to load in MediaFrame, perform an automatic single retry (with a cache-busting URL parameter) before showing the 'Image unavailable' state.",
+        "If the retry succeeds, the image displays normally and the error overlay does not appear.",
+        "If the retry fails, show the existing 'Image unavailable' overlay and provide a user action to retry loading the image again."
       ]
     },
     {
-      "id": "REQ-63",
-      "text": "Add an animated arrow indicator on the right side of the carousel area in `frontend/src/components/landing/SwipeCarouselSection.tsx` to hint users can swipe/scroll to the next slide; the indicator must be visually subtle, consistent with the black + gold theme, and must not overlap slide content or the existing navigation controls.",
+      "id": "REQ-3",
+      "text": "Optimize the static image assets used by the landing page to reduce total bytes while keeping all existing image URLs unchanged.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "project_state.json"
         ],
         "quotes": [
-          "Also add a animated arrow on right indicating carousel"
+          "Optimize all static image assets used on the landing page to reduce total bytes and improve perceived load time, without breaking any existing image URLs referenced in the code."
         ]
       },
       "acceptanceCriteria": [
-        "A right-side arrow indicator is visible within the carousel section and has a continuous subtle animation (e.g., gentle nudge/pulse) to suggest horizontal movement.",
-        "The arrow does not block/cover the slide image, slide text, pagination dots, or prev/next buttons on common mobile and desktop breakpoints.",
-        "The arrow is non-interactive (does not capture clicks/drags intended for the carousel) and does not introduce horizontal page overflow/scrolling.",
-        "The arrow indicator uses accessible markup (decorative arrow is `aria-hidden` or otherwise does not create confusing screen reader output)."
+        "All existing image paths referenced in code (e.g., /assets/IMG_9308.jpeg, /assets/quality_restoration_20260215131917797-1.jpeg) continue to work without any code changes to the URLs.",
+        "Image files in the static assets folder are recompressed/optimized to smaller sizes while maintaining acceptable visual quality.",
+        "A before/after comparison of total bytes across all referenced landing-page images shows a meaningful reduction."
       ]
     }
   ],
   "constraints": [
-    "Do not change any carousel copy/wording; keep all text exactly as it currently exists in `frontend/src/content/tbnCopy.ts` (including emojis and line breaks).",
-    "Do not introduce any layout that causes horizontal scrolling of the overall page (keep root overflow-x hidden behavior intact).",
-    "Do not edit frontend immutable paths listed in SYSTEM_CONTEXT (compose existing UI components rather than modifying them)."
+    "Do not edit any files under frontend/src/components/ui (read-only).",
+    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (immutable paths).",
+    "Backend remains single-actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Do not change carousel behavior (auto-advance timing, swipe/drag thresholds, or navigation logic) beyond what is necessary to place the arrow indicator safely.",
-    "Do not add new backend functionality or modify Motoko canister code."
+    "Adding new backend APIs or storing images in canister state.",
+    "Introducing third-party image CDN services or external storage providers.",
+    "Changing the landing page content, copy, or adding new sections beyond what is needed for image preloading/resilience."
   ],
   "imageRequirements": {
     "required": [],
@@ -75,7 +75,9 @@
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [],
+    "preferencesToAdd": [
+      "Prefer aggressive perceived-performance improvements for image-heavy UI (preload + resilience) while keeping URLs stable."
+    ],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

@@ -1,64 +1,188 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Tighten SwipeCarouselSection spacing and add subtle animated right-arrow indicator",
+  "title": "Landing-page image preloading, resilient retries, and static asset optimization",
   "requirements": [
     {
-      "id": "REQ-61",
-      "summary": "Reduce vertical gap between carousel image block and text block while preserving mobile-first vertical flow and existing copy.",
+      "id": "REQ-1",
+      "summary": "Preload all landing-page images on initial render with above-the-fold prioritized and the rest queued in the background.",
       "acceptanceCriteria": [
-        "On mobile and desktop, the gap between the slide image and the start of the text block is visibly smaller than before, without causing overlap/clipping.",
-        "The slide image remains fully visible (non-cropped) and keeps `object-fit: contain` behavior.",
-        "No carousel text in `frontend/src/content/tbnCopy.ts` is modified (wording, emojis, line breaks, and which slides have bullets remain exactly the same)."
+        "When the landing page first renders, the app begins preloading all image URLs referenced in frontend/src/components/landing/assets.ts plus the hero image (/assets/IMG_9304.jpeg).",
+        "Preloading happens without blocking first paint: above-the-fold images load with high priority, while the remainder preload in the background (e.g., after initial render / idle time).",
+        "After initial load, swiping to the next slide does not show the loading spinner for images that have already been preloaded (except in genuine network-failure scenarios)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "path": "frontend/src/hooks/useLandingImagePreload.ts",
+          "operation": "create",
+          "description": "Add a dedicated hook that preloads a provided list of image URLs using in-memory de-duping. Start high-priority preloads immediately after mount (e.g., hero + initial visible carousel images), then schedule the remaining URLs via idle time/timeout so first paint is not blocked."
+        },
+        {
+          "path": "frontend/src/pages/TbnLandingPage.tsx",
           "operation": "modify",
-          "description": "Tighten the vertical spacing between the image container and the text container by reducing the wrapping stack gap classes (e.g., adjust the `flex flex-col gap-*` values) while keeping the image-above-text layout and keeping MediaFrame `objectFit=\"contain\"` unchanged."
+          "description": "Wire the new preloading hook into the landing page so it runs on first render. Build the preload list from frontend/src/components/landing/assets.ts (carouselAssets + transformationAssets.src) plus /assets/IMG_9304.jpeg, and pass above-the-fold URLs as high priority while queueing the rest in the background."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Add non-blocking browser-level hints for above-the-fold imagery (at minimum /assets/IMG_9304.jpeg, optionally also the first carousel image) using preload/preconnect patterns to improve perceived performance without delaying initial render."
         }
       ]
     },
     {
-      "id": "REQ-62",
-      "summary": "Reduce line spacing (leading) within carousel text elements (title/description/bullets/tagline) for a tighter but readable layout without changing copy.",
+      "id": "REQ-2",
+      "summary": "Make MediaFrame recover from intermittent image failures via an automatic retry and a user-triggered retry action.",
       "acceptanceCriteria": [
-        "Line spacing within the description and bullet lines is slightly tighter than before (reduced leading), but remains readable on mobile and desktop.",
-        "Spacing reduction does not cause text to collide with bullets, markers, or other UI elements.",
-        "No changes are made to the actual carousel copy content in `frontend/src/content/tbnCopy.ts`."
+        "If an image fails to load in MediaFrame, perform an automatic single retry (with a cache-busting URL parameter) before showing the 'Image unavailable' state.",
+        "If the retry succeeds, the image displays normally and the error overlay does not appear.",
+        "If the retry fails, show the existing 'Image unavailable' overlay and provide a user action to retry loading the image again."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "path": "frontend/src/components/landing/MediaFrame.tsx",
           "operation": "modify",
-          "description": "Adjust Tailwind leading classes within the carousel text block (e.g., replace `leading-relaxed` / `leading-tight` as needed with slightly tighter leading) for description, bullet text, and tagline while preserving readability and not modifying any copy coming from `tbnCopy`."
+          "description": "Enhance MediaFrame error handling to (1) attempt one automatic retry on first load failure by re-requesting the image with a cache-busting query parameter, (2) only show the 'Image unavailable' overlay after the automatic retry fails, and (3) include a user-visible retry control that triggers another reload attempt. Ensure loading/error state resets correctly when src changes and when retrying."
         }
       ]
     },
     {
-      "id": "REQ-63",
-      "summary": "Add a subtle, continuously animated, non-interactive right-side arrow indicator within the carousel section that doesn’t overlap content or existing controls and doesn’t introduce horizontal overflow.",
+      "id": "REQ-3",
+      "summary": "Recompress/optimize landing-page static images to reduce total bytes while keeping all URLs and filenames unchanged.",
       "acceptanceCriteria": [
-        "A right-side arrow indicator is visible within the carousel section and has a continuous subtle animation (e.g., gentle nudge/pulse) to suggest horizontal movement.",
-        "The arrow does not block/cover the slide image, slide text, pagination dots, or prev/next buttons on common mobile and desktop breakpoints.",
-        "The arrow is non-interactive (does not capture clicks/drags intended for the carousel) and does not introduce horizontal page overflow/scrolling.",
-        "The arrow indicator uses accessible markup (decorative arrow is `aria-hidden` or otherwise does not create confusing screen reader output)."
+        "All existing image paths referenced in code (e.g., /assets/IMG_9308.jpeg, /assets/quality_restoration_20260215131917797-1.jpeg) continue to work without any code changes to the URLs.",
+        "Image files in the static assets folder are recompressed/optimized to smaller sizes while maintaining acceptable visual quality.",
+        "A before/after comparison of total bytes across all referenced landing-page images shows a meaningful reduction."
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/public/assets/IMG_9304.jpeg",
           "operation": "modify",
-          "description": "Add a dedicated subtle horizontal nudge/pulse keyframes + animation utility (e.g., a gentle right-arrow hint animation) to support the carousel indicator motion without relying on inline styles."
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
         },
         {
-          "path": "frontend/src/components/landing/SwipeCarouselSection.tsx",
+          "path": "frontend/public/assets/IMG_9308.jpeg",
           "operation": "modify",
-          "description": "Render a decorative right-arrow indicator (reuse existing ChevronRight icon) positioned absolutely within the carousel area (inside a `relative` container) using `pointer-events-none`, subtle black+gold styling, and the new animation utility; add layout padding/gutter as needed to ensure it never overlaps slide image/text or navigation controls and does not create horizontal page overflow; mark the indicator `aria-hidden`."
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
         },
         {
-          "path": "frontend/src/components/landing/__tests__/SwipeCarouselSection.test.tsx",
+          "path": "frontend/public/assets/IMG_9284-1.jpeg",
           "operation": "modify",
-          "description": "Add a minimal render test ensuring the arrow indicator is present with decorative accessibility treatment (e.g., `aria-hidden`) and does not interfere with the existing navigation controls (sanity check selectors/testids)."
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9292-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9295-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9294-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9293-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9296-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/quality_restoration_20260214165854157-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/quality_restoration_20260215131917797-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_1243-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_1245-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_1244-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/FA56354F-6223-4844-933C-9B9E7EA31806-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/B2F37900-801E-478B-8203-2D4D4B92106D-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/quality_restoration_20251122155053193-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/quality_restoration_20251124165416610-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/B3597C3F-2850-43A4-9A43-BF060367A3AE-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/6D5D52B1-AC14-4525-B9C4-352D5C57C737-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/A7B25DAD-D3CF-4A7B-ADAA-A2E73B9C018E-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/collage_export_7A9AC881-668E-423A-A8F3-B9B5C8A4B1BB-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/collage_export_8BBDEFED-8722-46B8-AD18-29A87123C7F9-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9331-1.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9332.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/quality_restoration_20260215163855145.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
+        },
+        {
+          "path": "frontend/public/assets/IMG_9339.jpeg",
+          "operation": "modify",
+          "description": "Recompress/optimize this asset in-place (keep the exact filename/path) to reduce bytes while maintaining acceptable visual quality."
         }
       ]
     }

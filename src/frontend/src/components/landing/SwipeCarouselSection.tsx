@@ -77,12 +77,19 @@ export default function SwipeCarouselSection({
   return (
     <section 
       id="features" 
-      className="py-8 md:py-16 bg-black min-h-[90vh] flex flex-col justify-center overflow-x-hidden max-w-full"
+      className="pt-4 pb-8 md:pt-8 md:pb-16 bg-black md:min-h-[90vh] flex flex-col justify-center overflow-x-hidden max-w-full"
       onMouseEnter={pauseAutoAdvance}
       onMouseLeave={resumeAutoAdvance}
     >
       <div className="w-full max-w-full flex-1 flex flex-col justify-center py-4 overflow-x-hidden">
         <div className="mx-auto max-w-4xl w-full px-4">
+          {/* App Features Heading */}
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400">
+              App Features
+            </h2>
+          </div>
+
           {/* Carousel Container - Horizontally scrollable wrapper with animated arrow indicator */}
           <div className="carousel-scroll-container w-full max-w-full relative">
             {/* Animated arrow indicator on the right */}
@@ -250,4 +257,3 @@ export default function SwipeCarouselSection({
     </section>
   );
 }
-

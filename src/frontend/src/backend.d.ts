@@ -7,7 +7,6 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
-export type Documentation = string;
 export interface backendInterface {
-    getDomainValidationDocumentation(): Promise<Documentation>;
+    getPublishedVersion(): Promise<string>;
 }
